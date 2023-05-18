@@ -1,7 +1,7 @@
 import { html, LitElement, nothing } from 'lit'
 import type { CSSResult, TemplateResult } from 'lit'
 import { customElement, property, query } from 'lit/decorators.js'
-import Lottie from 'lottie-web/build/player/lottie_light'
+import Lottie from 'lottie-web/build/player/lottie_light.js'
 import type {
   AnimationConfig,
   AnimationDirection,

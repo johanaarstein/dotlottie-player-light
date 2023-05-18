@@ -4,6 +4,237 @@
   "modules": [
     {
       "kind": "javascript-module",
+      "path": "dist/index.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "e",
+          "default": "window"
+        },
+        {
+          "kind": "variable",
+          "name": "t"
+        },
+        {
+          "kind": "variable",
+          "name": "tc"
+        },
+        {
+          "kind": "function",
+          "name": "t",
+          "parameters": [
+            {
+              "name": "t"
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "t",
+          "parameters": [
+            {
+              "name": "t"
+            },
+            {
+              "name": "e"
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "t",
+          "parameters": [
+            {
+              "name": "r"
+            },
+            {
+              "name": "n"
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "e",
+          "parameters": [
+            {
+              "name": "t"
+            },
+            {
+              "name": "e"
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "e",
+          "parameters": [
+            {
+              "name": "t"
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "e",
+          "parameters": [
+            {
+              "name": "t"
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "e",
+          "parameters": [
+            {
+              "name": "t"
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "e",
+          "parameters": [
+            {
+              "name": "t"
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "t",
+          "parameters": [
+            {
+              "name": "t"
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "t",
+          "parameters": [
+            {
+              "name": "t"
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "e",
+          "parameters": [
+            {
+              "name": "t"
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "tc",
+          "parameters": [
+            {
+              "name": "t"
+            },
+            {
+              "name": "e"
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "t",
+          "parameters": [
+            {
+              "name": "t"
+            },
+            {
+              "name": "e"
+            },
+            {
+              "name": "i"
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "e"
+        },
+        {
+          "kind": "function",
+          "name": "t",
+          "parameters": [
+            {
+              "name": "t"
+            },
+            {
+              "name": "e"
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "t",
+          "parameters": [
+            {
+              "name": "t"
+            },
+            {
+              "name": "e"
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "t",
+          "parameters": [
+            {
+              "name": "t"
+            },
+            {
+              "name": "e"
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "e",
+          "parameters": [
+            {
+              "name": "t"
+            },
+            {
+              "name": "e"
+            },
+            {
+              "name": "i"
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "e"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "tc",
+          "declaration": {
+            "name": "t",
+            "module": "dist/index.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "t",
+          "declaration": {
+            "name": "e",
+            "module": "dist/index.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "dev/index.js",
       "declarations": [
         {
@@ -54,901 +285,6 @@
       "path": "dev/webcomponents-loader.js",
       "declarations": [],
       "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dist/index.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "D"
-        },
-        {
-          "kind": "variable",
-          "name": "F"
-        },
-        {
-          "kind": "variable",
-          "name": "O"
-        },
-        {
-          "kind": "variable",
-          "name": "U"
-        },
-        {
-          "kind": "function",
-          "name": "F"
-        },
-        {
-          "kind": "function",
-          "name": "D",
-          "parameters": [
-            {
-              "name": "D"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "D",
-          "parameters": [
-            {
-              "name": "D"
-            },
-            {
-              "name": "F"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "F",
-          "parameters": [
-            {
-              "name": "F"
-            },
-            {
-              "name": "O"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "F"
-        },
-        {
-          "kind": "function",
-          "name": "D",
-          "parameters": [
-            {
-              "name": "F"
-            },
-            {
-              "name": "O"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "F",
-          "parameters": [
-            {
-              "name": "F"
-            },
-            {
-              "name": "O"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "O",
-          "parameters": [
-            {
-              "name": "D"
-            },
-            {
-              "name": "F"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "U",
-          "parameters": [
-            {
-              "name": "D"
-            },
-            {
-              "name": "F"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "F",
-          "parameters": [
-            {
-              "name": "D"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "O",
-          "parameters": [
-            {
-              "name": "D"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "F",
-          "parameters": [
-            {
-              "name": "D"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "O",
-          "parameters": [
-            {
-              "name": "D"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "F",
-          "parameters": [
-            {
-              "name": "D"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "O",
-          "parameters": [
-            {
-              "name": "D"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "F",
-          "parameters": [
-            {
-              "name": "D"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "O",
-          "parameters": [
-            {
-              "name": "D"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "D",
-          "parameters": [
-            {
-              "name": "D"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "F"
-        },
-        {
-          "kind": "function",
-          "name": "O"
-        },
-        {
-          "kind": "function",
-          "name": "U",
-          "parameters": [
-            {
-              "name": "D"
-            },
-            {
-              "name": "F"
-            },
-            {
-              "name": "O"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "D",
-          "parameters": [
-            {
-              "name": "D"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "D",
-          "parameters": [
-            {
-              "name": "D"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "F",
-          "parameters": [
-            {
-              "name": "D"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "O",
-          "parameters": [
-            {
-              "name": "D"
-            },
-            {
-              "name": "O"
-            },
-            {
-              "name": "U"
-            },
-            {
-              "name": "G"
-            },
-            {
-              "name": "W"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "D",
-          "parameters": [
-            {
-              "name": "D"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "F",
-          "parameters": [
-            {
-              "name": "D"
-            },
-            {
-              "name": "F"
-            },
-            {
-              "name": "O"
-            },
-            {
-              "name": "U"
-            },
-            {
-              "name": "G"
-            },
-            {
-              "name": "W"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "O",
-          "parameters": [
-            {
-              "name": "O"
-            },
-            {
-              "name": "U"
-            },
-            {
-              "name": "G"
-            },
-            {
-              "name": "W"
-            },
-            {
-              "name": "Y"
-            },
-            {
-              "name": "X"
-            },
-            {
-              "name": "K"
-            },
-            {
-              "name": "J"
-            },
-            {
-              "name": "Z"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "D",
-          "parameters": [
-            {
-              "name": "D"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "F",
-          "parameters": [
-            {
-              "name": "D"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "F",
-          "parameters": [
-            {
-              "name": "D"
-            },
-            {
-              "name": "F"
-            },
-            {
-              "name": "O"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "O"
-        },
-        {
-          "kind": "function",
-          "name": "U"
-        },
-        {
-          "kind": "function",
-          "name": "F",
-          "parameters": [
-            {
-              "name": "D"
-            },
-            {
-              "name": "F"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "D",
-          "parameters": [
-            {
-              "name": "D"
-            },
-            {
-              "name": "F"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "D",
-          "parameters": [
-            {
-              "name": "D"
-            },
-            {
-              "name": "F"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "O",
-          "parameters": [
-            {
-              "name": "D"
-            },
-            {
-              "name": "O"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "U",
-          "parameters": [
-            {
-              "name": "D"
-            },
-            {
-              "name": "O"
-            },
-            {
-              "name": "U"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "F",
-          "parameters": [
-            {
-              "name": "D"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "O",
-          "parameters": [
-            {
-              "name": "F"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "U"
-        },
-        {
-          "kind": "function",
-          "name": "F",
-          "parameters": [
-            {
-              "name": "D"
-            },
-            {
-              "name": "F"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "O"
-        },
-        {
-          "kind": "function",
-          "name": "O",
-          "parameters": [
-            {
-              "name": "D"
-            },
-            {
-              "name": "F"
-            },
-            {
-              "name": "O"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "U"
-        },
-        {
-          "kind": "function",
-          "name": "U",
-          "parameters": [
-            {
-              "name": "D"
-            },
-            {
-              "name": "F"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "F",
-          "parameters": [
-            {
-              "name": "F"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "F",
-          "parameters": [
-            {
-              "name": "D"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "U"
-        },
-        {
-          "kind": "function",
-          "name": "D",
-          "parameters": [
-            {
-              "name": "D"
-            },
-            {
-              "name": "F"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "O",
-          "parameters": [
-            {
-              "name": "D"
-            },
-            {
-              "name": "F"
-            },
-            {
-              "name": "O"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "U",
-          "parameters": [
-            {
-              "name": "F"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "D",
-          "parameters": [
-            {
-              "name": "D"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "F",
-          "parameters": [
-            {
-              "name": "D"
-            },
-            {
-              "name": "F"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "O",
-          "parameters": [
-            {
-              "name": "D"
-            },
-            {
-              "name": "F"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "U",
-          "parameters": [
-            {
-              "name": "D"
-            },
-            {
-              "name": "F"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "D",
-          "parameters": [
-            {
-              "name": "O"
-            },
-            {
-              "name": "U"
-            },
-            {
-              "name": "G"
-            },
-            {
-              "name": "W"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "F",
-          "parameters": [
-            {
-              "name": "D"
-            },
-            {
-              "name": "F"
-            },
-            {
-              "name": "O"
-            },
-            {
-              "name": "U"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "D",
-          "parameters": [
-            {
-              "name": "D"
-            },
-            {
-              "name": "F"
-            },
-            {
-              "name": "K"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "F",
-          "parameters": [
-            {
-              "name": "F"
-            },
-            {
-              "name": "O"
-            },
-            {
-              "name": "U"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "O",
-          "parameters": [
-            {
-              "name": "D"
-            },
-            {
-              "name": "O"
-            },
-            {
-              "name": "U"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "U",
-          "parameters": [
-            {
-              "name": "D"
-            },
-            {
-              "name": "F"
-            },
-            {
-              "name": "O"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "U",
-          "parameters": [
-            {
-              "name": "D"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "U",
-          "parameters": [
-            {
-              "name": "D"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "U",
-          "parameters": [
-            {
-              "name": "F"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "U",
-          "parameters": [
-            {
-              "name": "F"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "U",
-          "parameters": [
-            {
-              "name": "F"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "U",
-          "parameters": [
-            {
-              "name": "F"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "U",
-          "parameters": [
-            {
-              "name": "F"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "U",
-          "parameters": [
-            {
-              "name": "F"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "U",
-          "parameters": [
-            {
-              "name": "F"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "O",
-          "parameters": [
-            {
-              "name": "D"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "U",
-          "parameters": [
-            {
-              "name": "D"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "O",
-          "parameters": [
-            {
-              "name": "D"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "O",
-          "parameters": [
-            {
-              "name": "D"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "D",
-          "parameters": [
-            {
-              "name": "D"
-            },
-            {
-              "name": "F"
-            },
-            {
-              "name": "O"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "F",
-          "parameters": [
-            {
-              "name": "D"
-            },
-            {
-              "name": "F"
-            },
-            {
-              "name": "O"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "O",
-          "parameters": [
-            {
-              "name": "D"
-            },
-            {
-              "name": "F"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "U",
-          "parameters": [
-            {
-              "name": "D"
-            }
-          ]
-        },
-        {
-          "kind": "function",
-          "name": "D"
-        },
-        {
-          "kind": "function",
-          "name": "O"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "O",
-          "declaration": {
-            "name": "U",
-            "module": "dist/index.js"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "D",
-          "declaration": {
-            "name": "F",
-            "module": "dist/index.js"
-          }
-        }
-      ]
     },
     {
       "kind": "javascript-module",
@@ -1210,15 +546,6 @@
                 "text": "PreserveAspectRatio | undefined"
               },
               "description": "Resizing to container (Deprecated)"
-            },
-            {
-              "kind": "field",
-              "name": "renderer",
-              "type": {
-                "text": "RendererType | undefined"
-              },
-              "default": "'svg'",
-              "description": "Renderer to use (svg, canvas or html)"
             },
             {
               "kind": "field",
