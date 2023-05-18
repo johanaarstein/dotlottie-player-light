@@ -15,7 +15,7 @@ const input = './src/index.ts',
   external = [
     'lit',
     'lit/decorators.js',
-    'lottie-web',
+    'lottie-web/build/player/lottie_light',
     'fflate'
   ],
   plugins = ( dev = false, preferBuiltins = true ) => {

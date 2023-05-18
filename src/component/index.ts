@@ -1,14 +1,13 @@
 import { html, LitElement, nothing } from 'lit'
 import type { CSSResult, TemplateResult } from 'lit'
 import { customElement, property, query } from 'lit/decorators.js'
-import Lottie from 'lottie-web'
+import Lottie from 'lottie-web/build/player/lottie_light'
 import type {
   AnimationConfig,
   AnimationDirection,
   AnimationEventName,
   AnimationItem,
   AnimationSegment,
-  RendererType
 } from 'lottie-web'
 
 import { PlayMode, PlayerEvents, PlayerState } from './types'
@@ -114,12 +113,6 @@ export class DotLottiePlayer extends LitElement {
   preserveAspectRatio?: PreserveAspectRatio
 
   /**
-   * Renderer to use (svg, canvas or html)
-   */
-  @property({ type: String })
-  renderer?: RendererType = 'svg'
-
-  /**
    * Segment
    */
   @property({ type: Array })
@@ -175,40 +168,19 @@ export class DotLottiePlayer extends LitElement {
       //   typeof this.segment === 'string' ?
       //     (this.segment as string).split(',', 2).map(Number) : this.segment,
     
-      options: AnimationConfig<'svg' | 'canvas' | 'html'> = {
+      options: AnimationConfig<'svg'> = {
         container: this.container,
         loop: !!this.loop,
         autoplay: !!this.autoplay,
-        renderer: this.renderer,
+        renderer: 'svg',
         initialSegment: this.segment as AnimationSegment,
         rendererSettings: {
           imagePreserveAspectRatio: preserveAspectRatio,
-        }
-      }
-    
-    switch (this.renderer) {
-      case 'svg':
-        options.rendererSettings = {
-          ...options.rendererSettings,
           hideOnTransparent: true,
           preserveAspectRatio,
           progressiveLoad: true,
         }
-        break
-      case 'canvas':
-        options.rendererSettings  = {
-          ...options.rendererSettings,
-          clearCanvas: true,
-          preserveAspectRatio,
-          progressiveLoad: true,
-        }
-        break
-      case 'html':
-        options.rendererSettings = {
-          ...options.rendererSettings,
-          hideOnTransparent: true
-        }
-    }
+      }
 
     // Load the resource
     try {

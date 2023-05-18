@@ -2,13 +2,9 @@
 
 ![Awesome Vector Animations](/.github/readmeBanner.svg)
 
-This started as a fork of [@dotlottie/player-component](https://github.com/dotlottie/player-component), mainly made to address issues with render settings and aspect ratio. Since then we've added some functionalities here and tweaked some configurations there, and now this is the most versatile Lottie Player Web Component out there!
+This is a light version of of [@johanaarstein/dotlottie-player](https://www.npmjs.com/package/@johanaarstein/dotlottie-player), that only outputs SVG renders – and not Canvas or HTML.
 
 The component is built with Lit and compiled with Rust. It's compatible with server side rendering, and like any good web component it's framework agnostic.
-
-## Demo
-
-Here is [a demo](https://www.aarstein.media/en/dev/dotlottie-player), running on Next.js 13 using TypeScript.
 
 ## Installation
 
@@ -17,13 +13,13 @@ Here is [a demo](https://www.aarstein.media/en/dev/dotlottie-player), running on
 - Import from CDN:
 
 ```xml
-<script src="https://unpkg.com/@johanaarstein/dotlottie-player@latest/dist/index.js"></script>
+<script src="https://unpkg.com/@johanaarstein/dotlottie-player-light@latest/dist/index.js"></script>
 ```
 
 - Import from node_modules directory:
 
 ```xml
-<script src="/node_modules/@johanaarstein/dotlottie-player/dist/index.js"></script>
+<script src="/node_modules/@johanaarstein/dotlottie-player-light/dist/index.js"></script>
 ```
 
 ### In JavaScript or TypeScript
@@ -31,13 +27,13 @@ Here is [a demo](https://www.aarstein.media/en/dev/dotlottie-player), running on
 1. Install using npm or yarn:
 
 ```shell
-npm install --save @johanaarstein/dotlottie-player
+npm install --save @johanaarstein/dotlottie-player-light
 ```
 
 2. Import in your app:
 
 ```javascript
-import '@johanaarstein/dotlottie-player'
+import '@johanaarstein/dotlottie-player-light'
 ```
 
 ## Usage
@@ -68,7 +64,7 @@ lottiePlayer.load('https://storage.googleapis.com/aarsteinmedia/am.lottie')
 
 ```typescript
 import { Component } from '@angular/core'
-import '@johanaarstein/dotlottie-player'
+import '@johanaarstein/dotlottie-player-light'
 
 @Component({
   selector: 'app-root',
@@ -87,7 +83,7 @@ export class AppComponent {
 If you've already imported the library in a parent component, you don't need to import it again in children of that component. If you want to assign the element a class note that you need to use the `class` namespace, and not `className`.
 
 ```jsx
-import '@johanaarstein/dotlottie-player'
+import '@johanaarstein/dotlottie-player-light'
 
 function App() {
   return (
@@ -112,8 +108,8 @@ If you're using TypeScript and want to assign the component a `ref`, you can do 
 
 ```tsx
 import { useRef } from 'react'
-import '@johanaarstein/dotlottie-player'
-import type { DotLottiePlayer } from '@johanaarstein/dotlottie-player'
+import '@johanaarstein/dotlottie-player-light'
+import type { DotLottiePlayer } from '@johanaarstein/dotlottie-player-light'
 
 function App() {
   const animation = useRef<DotLottiePlayer | null>(null)
@@ -174,7 +170,7 @@ export default defineNuxtConfig({
 
 ```typescript
 import { createApp } from 'vue'
-import { DotLottiePlayer } from '@johanaarstein/dotlottie-player'
+import { DotLottiePlayer } from '@johanaarstein/dotlottie-player-light'
 import App from './App.vue'
 
 const app = createApp(App)
@@ -182,10 +178,10 @@ app.component('DotLottiePlayer', DotLottiePlayer)
 ```
 
 #### In Nuxt.js
-Create a `plugins` folder in your root if it doesn't exist already, add a file named `dotlottie-player.js`:
+Create a `plugins` folder in your root if it doesn't exist already, add a file named `dotlottie-player-light.js`:
 
 ```javascript
-import { DotLottiePlayer } from '@johanaarstein/dotlottie-player'
+import { DotLottiePlayer } from '@johanaarstein/dotlottie-player-light'
 
 export default defineNuxtPlugin(({ vueApp }) => {
   vueApp.component('DotLottiePlayer', DotLottiePlayer)
@@ -219,7 +215,6 @@ export default defineNuxtPlugin(({ vueApp }) => {
 | `loop`                | Whether to loop animation                                                                               | `boolean`                                | `false`           |
 | `mode`                | Play mode                                                                                               | `normal` \| `bounce`                     | `normal`          |
 | `objectfit`           | Resizing of animation in container                                                                      | `contain` \| `cover` \| `fill` \| `none` | `contain`         |
-| `renderer`            | Renderer to use                                                                                         | `svg` \| `canvas` \| `html`              | `svg`             |
 | `segment`             | Play only part of an animation. E. g. from frame 10 to frame 60 would be `[10, 60]`                     | `[number, number]`                       | `undefined`       |
 | `speed`               | Animation speed                                                                                         | `number`                                 | `1`               |
 | `src` _(required)_    | URL to LottieJSON or dotLottie                                                                          | `string`                                 | `undefined`       |
