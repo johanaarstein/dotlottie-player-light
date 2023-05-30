@@ -1709,6 +1709,7 @@
 		    this.onSetupError = this.onSetupError.bind(this);
 		    this.onSegmentComplete = this.onSegmentComplete.bind(this);
 		    this.drawnFrameEvent = new BMEnterFrameEvent('drawnFrame', 0, 0, 0);
+		    this.expressionsPlugin = getExpressionsPlugin();
 		  };
 
 		  extendPrototype([BaseEvent], AnimationItem);
@@ -2025,6 +2026,10 @@
 		    }
 
 		    try {
+		      if (this.expressionsPlugin) {
+		        this.expressionsPlugin.resetFrame();
+		      }
+
 		      this.renderer.renderFrame(this.currentFrame + this.firstFrame);
 		    } catch (error) {
 		      this.triggerRenderFrameError(error);
@@ -2038,7 +2043,7 @@
 
 		    if (this.isPaused === true) {
 		      this.isPaused = false;
-		      this.trigger('_pause');
+		      this.trigger('_play');
 		      this.audioController.resume();
 
 		      if (this._idle) {
@@ -2055,7 +2060,7 @@
 
 		    if (this.isPaused === false) {
 		      this.isPaused = true;
-		      this.trigger('_play');
+		      this.trigger('_pause');
 		      this._idle = true;
 		      this.trigger('_idle');
 		      this.audioController.pause();
@@ -2310,7 +2315,7 @@
 		    this.onSegmentStart = null;
 		    this.onDestroy = null;
 		    this.renderer = null;
-		    this.renderer = null;
+		    this.expressionsPlugin = null;
 		    this.imagePreloader = null;
 		    this.projectInterface = null;
 		  };
@@ -4880,6 +4885,11 @@
 		      return this;
 		    }
 
+		    function multiply(matrix) {
+		      var matrixProps = matrix.props;
+		      return this.transform(matrixProps[0], matrixProps[1], matrixProps[2], matrixProps[3], matrixProps[4], matrixProps[5], matrixProps[6], matrixProps[7], matrixProps[8], matrixProps[9], matrixProps[10], matrixProps[11], matrixProps[12], matrixProps[13], matrixProps[14], matrixProps[15]);
+		    }
+
 		    function isIdentity() {
 		      if (!this._identityCalculated) {
 		        this._identity = !(this.props[0] !== 1 || this.props[1] !== 0 || this.props[2] !== 0 || this.props[3] !== 0 || this.props[4] !== 0 || this.props[5] !== 1 || this.props[6] !== 0 || this.props[7] !== 0 || this.props[8] !== 0 || this.props[9] !== 0 || this.props[10] !== 1 || this.props[11] !== 0 || this.props[12] !== 0 || this.props[13] !== 0 || this.props[14] !== 0 || this.props[15] !== 1);
@@ -5095,6 +5105,7 @@
 		      this.setTransform = setTransform;
 		      this.translate = translate;
 		      this.transform = transform;
+		      this.multiply = multiply;
 		      this.applyToPoint = applyToPoint;
 		      this.applyToX = applyToX;
 		      this.applyToY = applyToY;
@@ -5219,7 +5230,7 @@
 		  lottie.useWebWorker = setWebWorker;
 		  lottie.setIDPrefix = setPrefix;
 		  lottie.__getFactory = getFactory;
-		  lottie.version = '5.11.0';
+		  lottie.version = '5.12.0';
 
 		  function checkReady() {
 		    if (document.readyState === 'complete') {
@@ -8230,17 +8241,25 @@
 		    };
 		  };
 
+		  var effectTypes = {
+		    TRANSFORM_EFFECT: 'transformEFfect'
+		  };
+
 		  function TransformElement() {}
 
 		  TransformElement.prototype = {
 		    initTransform: function initTransform() {
+		      var mat = new Matrix();
 		      this.finalTransform = {
 		        mProp: this.data.ks ? TransformPropertyFactory.getTransformProperty(this, this.data.ks, this) : {
 		          o: 0
 		        },
 		        _matMdf: false,
+		        _localMatMdf: false,
 		        _opMdf: false,
-		        mat: new Matrix()
+		        mat: mat,
+		        localMat: mat,
+		        localOpacity: 1
 		      };
 
 		      if (this.data.ao) {
@@ -8276,8 +8295,74 @@
 		          finalMat.cloneFromProps(mat);
 
 		          for (i = 0; i < len; i += 1) {
-		            mat = this.hierarchy[i].finalTransform.mProp.v.props;
-		            finalMat.transform(mat[0], mat[1], mat[2], mat[3], mat[4], mat[5], mat[6], mat[7], mat[8], mat[9], mat[10], mat[11], mat[12], mat[13], mat[14], mat[15]);
+		            finalMat.multiply(this.hierarchy[i].finalTransform.mProp.v);
+		          }
+		        }
+		      }
+
+		      if (this.finalTransform._matMdf) {
+		        this.finalTransform._localMatMdf = this.finalTransform._matMdf;
+		      }
+
+		      if (this.finalTransform._opMdf) {
+		        this.finalTransform.localOpacity = this.finalTransform.mProp.o.v;
+		      }
+		    },
+		    renderLocalTransform: function renderLocalTransform() {
+		      if (this.localTransforms) {
+		        var i = 0;
+		        var len = this.localTransforms.length;
+		        this.finalTransform._localMatMdf = this.finalTransform._matMdf;
+
+		        if (!this.finalTransform._localMatMdf || !this.finalTransform._opMdf) {
+		          while (i < len) {
+		            if (this.localTransforms[i]._mdf) {
+		              this.finalTransform._localMatMdf = true;
+		            }
+
+		            if (this.localTransforms[i]._opMdf) {
+		              this.finalTransform._opMdf = true;
+		            }
+
+		            i += 1;
+		          }
+		        }
+
+		        if (this.finalTransform._localMatMdf) {
+		          var localMat = this.finalTransform.localMat;
+		          this.localTransforms[0].matrix.clone(localMat);
+
+		          for (i = 1; i < len; i += 1) {
+		            var lmat = this.localTransforms[i].matrix;
+		            localMat.multiply(lmat);
+		          }
+
+		          localMat.multiply(this.finalTransform.mat);
+		        }
+
+		        if (this.finalTransform._opMdf) {
+		          var localOp = this.finalTransform.localOpacity;
+
+		          for (i = 0; i < len; i += 1) {
+		            localOp *= this.localTransforms[i].opacity * 0.01;
+		          }
+
+		          this.finalTransform.localOpacity = localOp;
+		        }
+		      }
+		    },
+		    searchEffectTransforms: function searchEffectTransforms() {
+		      if (this.renderableEffectsManager) {
+		        var transformEffects = this.renderableEffectsManager.getEffects(effectTypes.TRANSFORM_EFFECT);
+
+		        if (transformEffects.length) {
+		          this.localTransforms = [];
+		          this.finalTransform.localMat = new Matrix();
+		          var i = 0;
+		          var len = transformEffects.length;
+
+		          for (i = 0; i < len; i += 1) {
+		            this.localTransforms.push(transformEffects[i]);
 		          }
 		        }
 		      }
@@ -8660,6 +8745,20 @@
 		    }
 		  };
 
+		  SVGEffects.prototype.getEffects = function (type) {
+		    var i;
+		    var len = this.filters.length;
+		    var effects = [];
+
+		    for (i = 0; i < len; i += 1) {
+		      if (this.filters[i].type === type) {
+		        effects.push(this.filters[i]);
+		      }
+		    }
+
+		    return effects;
+		  };
+
 		  function SVGBaseElement() {}
 
 		  SVGBaseElement.prototype = {
@@ -8727,12 +8826,12 @@
 		      }
 		    },
 		    renderElement: function renderElement() {
-		      if (this.finalTransform._matMdf) {
-		        this.transformedElement.setAttribute('transform', this.finalTransform.mat.to2dCSS());
+		      if (this.finalTransform._localMatMdf) {
+		        this.transformedElement.setAttribute('transform', this.finalTransform.localMat.to2dCSS());
 		      }
 
 		      if (this.finalTransform._opMdf) {
-		        this.transformedElement.setAttribute('opacity', this.finalTransform.mProp.o.v);
+		        this.transformedElement.setAttribute('opacity', this.finalTransform.localOpacity);
 		      }
 		    },
 		    destroyBaseElement: function destroyBaseElement() {
@@ -8750,6 +8849,7 @@
 		    createRenderableComponents: function createRenderableComponents() {
 		      this.maskManager = new MaskElement(this.data, this, this.globalData);
 		      this.renderableEffectsManager = new SVGEffects(this);
+		      this.searchEffectTransforms();
 		    },
 		    getMatte: function getMatte(matteType) {
 		      // This should not be a common case. But for backward compatibility, we'll create the matte object.
@@ -8941,6 +9041,7 @@
 
 		        this.renderTransform();
 		        this.renderRenderable();
+		        this.renderLocalTransform();
 		        this.renderElement();
 		        this.renderInnerContent();
 
@@ -9537,7 +9638,6 @@
 		      var lvl = itemData.lvl;
 		      var paths;
 		      var mat;
-		      var props;
 		      var iterations;
 		      var k;
 
@@ -9560,8 +9660,7 @@
 		            k = itemData.transformers.length - 1;
 
 		            while (iterations > 0) {
-		              props = itemData.transformers[k].mProps.v.props;
-		              mat.transform(props[0], props[1], props[2], props[3], props[4], props[5], props[6], props[7], props[8], props[9], props[10], props[11], props[12], props[13], props[14], props[15]);
+		              mat.multiply(itemData.transformers[k].mProps.v);
 		              iterations -= 1;
 		              k -= 1;
 		            }
@@ -11633,12 +11732,6 @@
 		    this._mdf = false;
 		    this.prepareRenderableFrame(num);
 		    this.prepareProperties(num, this.isInRange);
-
-		    if (this.textProperty._mdf || this.textProperty._isFirstFrame) {
-		      this.buildNewText();
-		      this.textProperty._isFirstFrame = false;
-		      this.textProperty._mdf = false;
-		    }
 		  };
 
 		  ITextElement.prototype.createPathShape = function (matrixHelper, shapes) {
@@ -11696,6 +11789,14 @@
 		  ITextElement.prototype.emptyProp = new LetterProps();
 
 		  ITextElement.prototype.destroy = function () {};
+
+		  ITextElement.prototype.validateText = function () {
+		    if (this.textProperty._mdf || this.textProperty._isFirstFrame) {
+		      this.buildNewText();
+		      this.textProperty._isFirstFrame = false;
+		      this.textProperty._mdf = false;
+		    }
+		  };
 
 		  var emptyShapeData = {
 		    shapes: []
@@ -11990,6 +12091,8 @@
 		  };
 
 		  SVGTextLottieElement.prototype.renderInnerContent = function () {
+		    this.validateText();
+
 		    if (!this.data.singleShape || this._mdf) {
 		      this.textAnimator.getMeasures(this.textProperty.currentData, this.lettersChangedFlag);
 
@@ -16159,7 +16262,7 @@
 	    var data = _tagged_template_literal([
 	        '<svg width="24" height="24" aria-hidden="true" focusable="false"><path d="M8.016 5.016L18.985 12 8.016 18.984V5.015z"/></svg>'
 	    ]);
-	    _templateObject1 = function _templateObject1() {
+	    _templateObject1 = function _templateObject() {
 	        return data;
 	    };
 	    return data;
@@ -16182,7 +16285,7 @@
 	        '" class="',
 	        '" aria-label="Toggle boomerang" style="align-items:center" tabindex="0"><svg width="24" height="24" aria-hidden="true" focusable="false"><path d="m11.8 13.2-.3.3c-.5.5-1.1 1.1-1.7 1.5-.5.4-1 .6-1.5.8-.5.2-1.1.3-1.6.3s-1-.1-1.5-.3c-.6-.2-1-.5-1.4-1-.5-.6-.8-1.2-.9-1.9-.2-.9-.1-1.8.3-2.6.3-.7.8-1.2 1.3-1.6.3-.2.6-.4 1-.5.2-.2.5-.2.8-.3.3 0 .7-.1 1 0 .3 0 .6.1.9.2.9.3 1.7.9 2.4 1.5.4.4.8.7 1.1 1.1l.1.1.4-.4c.6-.6 1.2-1.2 1.9-1.6.5-.3 1-.6 1.5-.7.4-.1.7-.2 1-.2h.9c1 .1 1.9.5 2.6 1.4.4.5.7 1.1.8 1.8.2.9.1 1.7-.2 2.5-.4.9-1 1.5-1.8 2-.4.2-.7.4-1.1.4-.4.1-.8.1-1.2.1-.5 0-.9-.1-1.3-.3-.8-.3-1.5-.9-2.1-1.5-.4-.4-.8-.7-1.1-1.1h-.3zm-1.1-1.1c-.1-.1-.1-.1 0 0-.3-.3-.6-.6-.8-.9-.5-.5-1-.9-1.6-1.2-.4-.3-.8-.4-1.3-.4-.4 0-.8 0-1.1.2-.5.2-.9.6-1.1 1-.2.3-.3.7-.3 1.1 0 .3 0 .6.1.9.1.5.4.9.8 1.2.5.4 1.1.5 1.7.5.5 0 1-.2 1.5-.5.6-.4 1.1-.8 1.6-1.3.1-.3.3-.5.5-.6zM13 12c.5.5 1 1 1.5 1.4.5.5 1.1.9 1.9 1 .4.1.8 0 1.2-.1.3-.1.6-.3.9-.5.4-.4.7-.9.8-1.4.1-.5 0-.9-.1-1.4-.3-.8-.8-1.2-1.7-1.4-.4-.1-.8-.1-1.2 0-.5.1-1 .4-1.4.7-.5.4-1 .8-1.4 1.2-.2.2-.4.3-.5.5z"/></svg></button></div>'
 	    ]);
-	    _templateObject2 = function _templateObject2() {
+	    _templateObject2 = function _templateObject() {
 	        return data;
 	    };
 	    return data;
@@ -16191,7 +16294,7 @@
 	    var data = _tagged_template_literal([
 	        '<div class="error">⚠️</div>'
 	    ]);
-	    _templateObject3 = function _templateObject3() {
+	    _templateObject3 = function _templateObject() {
 	        return data;
 	    };
 	    return data;
@@ -16207,7 +16310,7 @@
 	        "</div>",
 	        "</div>"
 	    ]);
-	    _templateObject4 = function _templateObject4() {
+	    _templateObject4 = function _templateObject() {
 	        return data;
 	    };
 	    return data;
