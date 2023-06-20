@@ -13,15 +13,6 @@
         {
           "kind": "variable",
           "name": "n"
-        },
-        {
-          "kind": "function",
-          "name": "e",
-          "parameters": [
-            {
-              "name": "e"
-            }
-          ]
         }
       ],
       "exports": [
@@ -70,7 +61,7 @@
         },
         {
           "kind": "variable",
-          "name": "tu"
+          "name": "td"
         },
         {
           "kind": "function",
@@ -182,6 +173,15 @@
         },
         {
           "kind": "function",
+          "name": "td",
+          "parameters": [
+            {
+              "name": "t"
+            }
+          ]
+        },
+        {
+          "kind": "function",
           "name": "t",
           "parameters": [
             {
@@ -258,7 +258,7 @@
       "exports": [
         {
           "kind": "custom-element-definition",
-          "name": "tu",
+          "name": "td",
           "declaration": {
             "name": "t",
             "module": "dist/index.js"
