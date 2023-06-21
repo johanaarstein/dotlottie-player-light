@@ -20,9 +20,9 @@ import type {
   Subframe
 } from './types'
 
-import { aspectRatio, fetchPath } from '@functions'
+import { aspectRatio, fetchPath } from './functions'
 
-import styles from '@styles'
+import styles from './styles'
 
 /**
  * dotLottie Player Web Component class
@@ -600,7 +600,7 @@ export class DotLottiePlayer extends LitElement {
     if ('IntersectionObserver' in window) {
       this._io = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
         if (entries[0].isIntersecting) {
-          if (this.currentState === PlayerState.Frozen) {
+          if (!document.hidden && this.currentState === PlayerState.Frozen) {
             this.play()
           }
         } else if (this.currentState === PlayerState.Playing) {

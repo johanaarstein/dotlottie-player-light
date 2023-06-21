@@ -16921,7 +16921,7 @@
 	                                if ('IntersectionObserver' in window) {
 	                                    _this._io = new IntersectionObserver(function(entries) {
 	                                        if (entries[0].isIntersecting) {
-	                                            if (_this.currentState === exports.PlayerState.Frozen) {
+	                                            if (!document.hidden && _this.currentState === exports.PlayerState.Frozen) {
 	                                                _this.play();
 	                                            }
 	                                        } else if (_this.currentState === exports.PlayerState.Playing) {
