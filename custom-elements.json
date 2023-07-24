@@ -4,50 +4,6 @@
   "modules": [
     {
       "kind": "javascript-module",
-      "path": "dev/index.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "e"
-        },
-        {
-          "kind": "variable",
-          "name": "n"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "e",
-          "declaration": {
-            "name": "n",
-            "module": "dev/index.js"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "e",
-          "declaration": {
-            "name": "n",
-            "module": "dev/index.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dev/polyfill-support.js",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dev/webcomponents-loader.js",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
       "path": "dist/index.js",
       "declarations": [
         {
@@ -61,7 +17,7 @@
         },
         {
           "kind": "variable",
-          "name": "td"
+          "name": "tm"
         },
         {
           "kind": "function",
@@ -173,12 +129,7 @@
         },
         {
           "kind": "function",
-          "name": "td",
-          "parameters": [
-            {
-              "name": "t"
-            }
-          ]
+          "name": "tm"
         },
         {
           "kind": "function",
@@ -258,7 +209,7 @@
       "exports": [
         {
           "kind": "custom-element-definition",
-          "name": "td",
+          "name": "tm",
           "declaration": {
             "name": "t",
             "module": "dist/index.js"
@@ -273,6 +224,50 @@
           }
         }
       ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dev/index.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "e"
+        },
+        {
+          "kind": "variable",
+          "name": "n"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "e",
+          "declaration": {
+            "name": "n",
+            "module": "dev/index.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "e",
+          "declaration": {
+            "name": "n",
+            "module": "dev/index.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dev/polyfill-support.js",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dev/webcomponents-loader.js",
+      "declarations": [],
+      "exports": []
     },
     {
       "kind": "javascript-module",
