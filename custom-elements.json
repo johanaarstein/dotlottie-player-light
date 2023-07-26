@@ -4,6 +4,50 @@
   "modules": [
     {
       "kind": "javascript-module",
+      "path": "dev/index.js",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "e"
+        },
+        {
+          "kind": "variable",
+          "name": "n"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "custom-element-definition",
+          "name": "e",
+          "declaration": {
+            "name": "n",
+            "module": "dev/index.js"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "e",
+          "declaration": {
+            "name": "n",
+            "module": "dev/index.js"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dev/polyfill-support.js",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "dev/webcomponents-loader.js",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
       "path": "dist/index.js",
       "declarations": [
         {
@@ -224,50 +268,6 @@
           }
         }
       ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dev/index.js",
-      "declarations": [
-        {
-          "kind": "variable",
-          "name": "e"
-        },
-        {
-          "kind": "variable",
-          "name": "n"
-        }
-      ],
-      "exports": [
-        {
-          "kind": "custom-element-definition",
-          "name": "e",
-          "declaration": {
-            "name": "n",
-            "module": "dev/index.js"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "e",
-          "declaration": {
-            "name": "n",
-            "module": "dev/index.js"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dev/polyfill-support.js",
-      "declarations": [],
-      "exports": []
-    },
-    {
-      "kind": "javascript-module",
-      "path": "dev/webcomponents-loader.js",
-      "declarations": [],
-      "exports": []
     },
     {
       "kind": "javascript-module",
