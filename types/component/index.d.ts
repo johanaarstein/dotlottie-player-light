@@ -37,7 +37,6 @@ export declare class DotLottiePlayer extends LitElement {
     stop(): void;
     destroy(): void;
     seek(value: number | string): void;
-    snapshot(download?: boolean): string | undefined;
     setSubframe(value: boolean): void;
     private freeze;
     reload(): Promise<void>;

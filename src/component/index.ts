@@ -346,7 +346,7 @@ export class DotLottiePlayer extends LitElement {
     if (!event.target || !this._lottie || isNaN(Number(event.target.value))) return
 
     const frame: number =
-      (Number(event.target.value) / 100) * this._lottie.totalFrames
+      Math.floor((Number(event.target.value) / 100) * this._lottie.totalFrames)
 
     this.seek(frame)
   }
@@ -443,37 +443,6 @@ export class DotLottiePlayer extends LitElement {
       this._lottie.goToAndStop(frame, true)
       this._lottie.pause()
     }
-  }
-
-  /**
-   * Snapshot the current frame as SVG
-   *
-   * If 'download' is true, a download is triggered in the browser
-   */
-  public snapshot(download = true) {
-    if (!this.shadowRoot) return
-
-    // Get SVG element and serialize markup
-    const svgElement = this.shadowRoot.querySelector('.animation svg')
-    const data =
-      svgElement instanceof Node ?
-        new XMLSerializer().serializeToString(svgElement) : null
-
-    if (!data) return
-
-    // Trigger file download
-    if (download) {
-      const element = document.createElement('a')
-      element.href = 'data:image/svg+xmlcharset=utf-8,' + encodeURIComponent(data)
-      element.download = 'download_' + this.seeker + '.svg'
-      document.body.appendChild(element)
-
-      element.click()
-
-      document.body.removeChild(element)
-    }
-
-    return data
   }
 
   public setSubframe(value: boolean) {
