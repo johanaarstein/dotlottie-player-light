@@ -28,9 +28,11 @@ const aspectRatio = (objectFit: ObjectFit) => {
 
   fetchPath = async (path: string): Promise<JSON> => {
     const ext: string | undefined = path.split('.').pop()?.toLowerCase()
+    let status = 200
 
     try {
       const result = await fetch(path)
+      status = result.status
 
       if (ext === 'json')
         return await result.json()
@@ -93,7 +95,11 @@ const aspectRatio = (objectFit: ObjectFit) => {
       return lottieJson
 
     } catch (err) {
-      throw new Error('Unable to load file')
+      if (status === 404) {
+        throw new Error('File not found')
+      } else {
+        throw new Error('Unable to load file')
+      }
     }
   }
 

@@ -15874,11 +15874,12 @@
 	    }
 	}, fetchPath = function() {
 	    var _ref = _async_to_generator$1(function(path) {
-	        var _path_split_pop, ext, _unzipped, result, buffer$1, unzipped, manifestFile, manifest, _, id, lottieString, lottieJson;
+	        var _path_split_pop, ext, status, _unzipped, result, buffer$1, unzipped, manifestFile, manifest, _, id, lottieString, lottieJson;
 	        return _ts_generator$1(this, function(_state) {
 	            switch(_state.label){
 	                case 0:
 	                    ext = (_path_split_pop = path.split('.').pop()) === null || _path_split_pop === void 0 ? void 0 : _path_split_pop.toLowerCase();
+	                    status = 200;
 	                    _state.label = 1;
 	                case 1:
 	                    _state.trys.push([
@@ -15893,6 +15894,7 @@
 	                    ];
 	                case 2:
 	                    result = _state.sent();
+	                    status = result.status;
 	                    if (!(ext === 'json')) return [
 	                        3,
 	                        4
@@ -15971,7 +15973,11 @@
 	                    ];
 	                case 8:
 	                    _state.sent();
-	                    throw new Error('Unable to load file');
+	                    if (status === 404) {
+	                        throw new Error('File not found');
+	                    } else {
+	                        throw new Error('Unable to load file');
+	                    }
 	                case 9:
 	                    return [
 	                        2

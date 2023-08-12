@@ -1,6 +1,6 @@
-import { DotLottiePlayer } from '.'
-
 import type { Unzipped } from 'fflate'
+import type { RefObject } from 'react'
+import type { DotLottiePlayer } from '.'
 
 export enum PlayerState {
   Completed = 'completed',
@@ -60,8 +60,8 @@ export type PreserveAspectRatio = 'xMidYMid meet' | 'xMidYMid slice' | 'xMinYMin
 
 interface ReactLottiePlayer extends Partial<DotLottiePlayer> {
   class?: string
-  ref?: any
-  style?: any
+  ref?: RefObject<unknown>
+  style?: CSSStyleDeclaration
 }
 
 declare global {
