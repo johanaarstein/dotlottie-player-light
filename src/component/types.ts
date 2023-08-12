@@ -1,5 +1,6 @@
+import { DotLottiePlayer } from '.'
+
 import type { Unzipped } from 'fflate'
-import type { DotLottiePlayer } from '.'
 
 export enum PlayerState {
   Completed = 'completed',

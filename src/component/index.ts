@@ -1,7 +1,14 @@
 import { html, LitElement, nothing } from 'lit'
-import type { CSSResult, TemplateResult } from 'lit'
 import { customElement, property, query } from 'lit/decorators.js'
 import Lottie from 'lottie-web/build/player/lottie_light.js'
+
+import { aspectRatio, fetchPath } from './functions'
+import {
+  PlayMode,
+  PlayerEvents,
+  PlayerState
+} from './types'
+
 import type {
   AnimationConfig,
   AnimationDirection,
@@ -9,8 +16,6 @@ import type {
   AnimationItem,
   AnimationSegment,
 } from 'lottie-web'
-
-import { PlayMode, PlayerEvents, PlayerState } from './types'
 import type {
   Autoplay,
   Controls,
@@ -19,8 +24,6 @@ import type {
   PreserveAspectRatio,
   Subframe
 } from './types'
-
-import { aspectRatio, fetchPath } from './functions'
 
 import styles from './styles'
 
@@ -116,7 +119,7 @@ export class DotLottiePlayer extends LitElement {
    * Segment
    */
   @property({ type: Array })
-  segment?: AnimationSegment | string
+  segment?: AnimationSegment
 
   /**
    * Seeker
@@ -152,28 +155,25 @@ export class DotLottiePlayer extends LitElement {
   private _lottie: AnimationItem | null = null
   private _prevState?: PlayerState
   private _counter = 0
+  private _error?: string = 'Something went wrong'
 
   /**
    * Initialize Lottie Web player
    */
-  public async load(src: string | Record<string, number | undefined> | JSON): Promise<void> {
+  public async load(src: string | Record<string, number | undefined> | JSON) {
     if (!this.shadowRoot) {
       return
     }
 
     const preserveAspectRatio =
       this.preserveAspectRatio ?? (this.objectfit && aspectRatio(this.objectfit)),
-      
-      // segment =
-      //   typeof this.segment === 'string' ?
-      //     (this.segment as string).split(',', 2).map(Number) : this.segment,
-    
+          
       options: AnimationConfig<'svg'> = {
         container: this.container,
         loop: !!this.loop,
         autoplay: !!this.autoplay,
         renderer: 'svg',
-        initialSegment: this.segment as AnimationSegment,
+        initialSegment: this.segment,
         rendererSettings: {
           imagePreserveAspectRatio: preserveAspectRatio,
           hideOnTransparent: true,
@@ -185,13 +185,14 @@ export class DotLottiePlayer extends LitElement {
     // Load the resource
     try {
       if (typeof src !== 'string' && typeof src !== 'object') {
-        throw new Error('No Lottie animation to load, or the file is corrupted.')
+        throw new Error('Broken file or invalid file format')
       }
 
       const srcParsed = typeof src === 'string' ? await fetchPath(src) : src
 
-      if (!this.isLottie(srcParsed)) throw new Error('dotLottie: Load method failed. Object is not a valid Lottie.')
-
+      if (!this.isLottie(srcParsed)) {
+        throw new Error('Broken or corrupted file')
+      }
       // Clear previous animation, if any
       if (this._lottie) this._lottie.destroy()
 
@@ -202,6 +203,9 @@ export class DotLottiePlayer extends LitElement {
       })
     } catch (err) {
       console.error(err)
+      
+      if (err instanceof Error)
+        this._error = err?.message
       
       this.currentState = PlayerState.Error
 
@@ -327,7 +331,7 @@ export class DotLottiePlayer extends LitElement {
   /**
    * Handle visibility change events
    */
-  private _onVisibilityChange(): void {
+  private _onVisibilityChange() {
     if (document.hidden && this.currentState === PlayerState.Playing) {
       this.freeze()
     } else if (this.currentState === PlayerState.Frozen) {
@@ -338,7 +342,7 @@ export class DotLottiePlayer extends LitElement {
   /**
    * Handles click and drag actions on the progress track
    */
-  private _handleSeekChange(event: Event & { target: HTMLInputElement }): void {
+  private _handleSeekChange(event: Event & { target: HTMLInputElement }) {
     if (!event.target || !this._lottie || isNaN(Number(event.target.value))) return
 
     const frame: number =
@@ -347,7 +351,7 @@ export class DotLottiePlayer extends LitElement {
     this.seek(frame)
   }
 
-  private isLottie(json: Record<string, number | undefined> | JSON): boolean {
+  private isLottie(json: Record<string, number | undefined> | JSON) {
     const mandatory: string[] = ['v', 'ip', 'op', 'layers', 'fr', 'w', 'h']
 
     return mandatory.every((field: string) =>
@@ -357,7 +361,7 @@ export class DotLottiePlayer extends LitElement {
   /**
    * Returns the lottie-web instance used in the component
    */
-  public getLottie(): AnimationItem | null {
+  public getLottie() {
     return this._lottie
   }
 
@@ -376,7 +380,7 @@ export class DotLottiePlayer extends LitElement {
   /**
    * Pause
    */
-  public pause(): void {
+  public pause() {
     if (!this._lottie) return
 
     this.currentState = PlayerState.Paused
@@ -388,7 +392,7 @@ export class DotLottiePlayer extends LitElement {
   /**
    * Stop
    */
-  public stop(): void {
+  public stop() {
     if (!this._lottie) return
 
     this.currentState = PlayerState.Stopped
@@ -402,7 +406,7 @@ export class DotLottiePlayer extends LitElement {
   /**
    * Destroy animation and element
    */
-  public destroy(): void {
+  public destroy() {
     if (!this._lottie) return
 
     this.currentState = PlayerState.Destroyed
@@ -416,7 +420,7 @@ export class DotLottiePlayer extends LitElement {
   /**
    * Seek to a given frame
    */
-  public seek(value: number | string): void {
+  public seek(value: number | string) {
     if (!this._lottie) return
 
     // Extract frame number from either number or percentage value
@@ -446,7 +450,7 @@ export class DotLottiePlayer extends LitElement {
    *
    * If 'download' is true, a download is triggered in the browser
    */
-  public snapshot(download = true): string | void {
+  public snapshot(download = true) {
     if (!this.shadowRoot) return
 
     // Get SVG element and serialize markup
@@ -472,7 +476,7 @@ export class DotLottiePlayer extends LitElement {
     return data
   }
 
-  public setSubframe(value: boolean): void {
+  public setSubframe(value: boolean) {
     if (!this._lottie) return
     this.subframe = value
     this._lottie.setSubframe(value)
@@ -483,7 +487,7 @@ export class DotLottiePlayer extends LitElement {
    * This internal state pauses animation and is used to differentiate between
    * user requested pauses and component instigated pauses.
    */
-  private freeze(): void {
+  private freeze() {
     if (!this._lottie) return
 
     this.currentState = PlayerState.Frozen
@@ -495,7 +499,7 @@ export class DotLottiePlayer extends LitElement {
   /**
    * Reload animation
    */
-  public async reload(): Promise<void> {
+  public async reload() {
     if (!this._lottie) return
     
     this._lottie.destroy()
@@ -509,7 +513,7 @@ export class DotLottiePlayer extends LitElement {
    * Set animation play speed
    * @param value Playback speed.
    */
-  public setSpeed(value = 1): void {
+  public setSpeed(value = 1) {
     if (!this._lottie) return
     this.speed = value
     this._lottie.setSpeed(value)
@@ -519,7 +523,7 @@ export class DotLottiePlayer extends LitElement {
    * Animation play direction
    * @param value AnimationDirection
    */
-  public setDirection(value: AnimationDirection): void {
+  public setDirection(value: AnimationDirection) {
     if (!this._lottie) return
     this.direction = value
     this._lottie.setDirection(value)
@@ -528,7 +532,7 @@ export class DotLottiePlayer extends LitElement {
   /**
    * Set loop
    */
-  public setLooping(value: boolean): void {
+  public setLooping(value: boolean) {
     if (this._lottie) {
       this.loop = value
       this._lottie.setLoop(value)
@@ -538,7 +542,7 @@ export class DotLottiePlayer extends LitElement {
   /**
    * Toggle playing state
    */
-  public togglePlay(): void {
+  public togglePlay() {
     if (!this._lottie) return
     
     const { currentFrame, playDirection, totalFrames } = this._lottie
@@ -560,14 +564,14 @@ export class DotLottiePlayer extends LitElement {
   /**
    * Toggle loop
    */
-  public toggleLooping(): void {
+  public toggleLooping() {
     this.setLooping(!this.loop)
   }
 
   /**
    * Toggle Boomerang
    */
-  public toggleBoomerang(): void {
+  public toggleBoomerang() {
     if (this.mode === PlayMode.Normal) {
       this.mode = PlayMode.Bounce
     } else {
@@ -578,14 +582,14 @@ export class DotLottiePlayer extends LitElement {
   /**
    * Return the styles for the component
    */
-  static override get styles(): CSSResult {
+  static override get styles() {
     return styles
   }
 
   /**
    * Initialize everything on component first render
    */
-  override connectedCallback(): void {
+  override connectedCallback() {
     super.connectedCallback()
   
     // Add listener for Visibility API's change event.
@@ -595,7 +599,7 @@ export class DotLottiePlayer extends LitElement {
 
   }
 
-  protected override async firstUpdated(): Promise<void> {
+  protected override async firstUpdated() {
     // Add intersection observer for detecting component being out-of-view.
     if ('IntersectionObserver' in window) {
       this._io = new IntersectionObserver((entries: IntersectionObserverEntry[]) => {
@@ -621,7 +625,7 @@ export class DotLottiePlayer extends LitElement {
   /**
    * Cleanup on component destroy
    */
-  override disconnectedCallback(): void {
+  override disconnectedCallback() {
     super.disconnectedCallback()
 
     // Remove intersection observer for detecting component being out-of-view
@@ -638,12 +642,16 @@ export class DotLottiePlayer extends LitElement {
   }
 
   protected renderControls() {
-    const isPlaying: boolean = this.currentState === PlayerState.Playing
-    const isPaused: boolean = this.currentState === PlayerState.Paused
-    const isStopped: boolean = this.currentState === PlayerState.Stopped
+    const isPlaying = this.currentState === PlayerState.Playing,
+      isPaused = this.currentState === PlayerState.Paused,
+      isStopped = this.currentState === PlayerState.Stopped,
+      isError = this.currentState === PlayerState.Error
 
     return html`
-      <div class="lottie-controls toolbar" aria-label="Lottie Animation Controls" class="toolbar">
+      <div
+        class=${`lottie-controls toolbar ${isError ? 'has-error' : ''}`}
+        aria-label="Lottie Animation Controls"
+      >
         <button
           @click=${this.togglePlay}
           class=${isPlaying || isPaused ? 'active' : ''}
@@ -725,7 +733,7 @@ export class DotLottiePlayer extends LitElement {
     `
   }
 
-  protected override render(): TemplateResult | void {
+  protected override render() {
     const className: string = this.controls ? 'main controls' : 'main',
       animationClass: string = this.controls ? 'animation controls' : 'animation'
     
@@ -738,7 +746,21 @@ export class DotLottiePlayer extends LitElement {
       >
         <div class=${animationClass} style="background:${this.background}">
           ${this.currentState === PlayerState.Error ?
-            html`<div class="error">⚠️</div>` : nothing
+            html`
+              <div class="error">
+                <svg preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="1920" height="1080" viewBox="0 0 1920 1080">
+                  <path fill="#fff" d="M0 0h1920v1080H0z"/>
+                  <path fill="#3a6d8b" d="M1190.2 531 1007 212.4c-22-38.2-77.2-38-98.8.5L729.5 531.3c-21.3 37.9 6.1 84.6 49.5 84.6l361.9.3c43.7 0 71.1-47.3 49.3-85.2zM937.3 288.7c.2-7.5 3.3-23.9 23.2-23.9 16.3 0 23 16.1 23 23.5 0 55.3-10.7 197.2-12.2 214.5-.1 1-.9 1.7-1.9 1.7h-18.3c-1 0-1.8-.7-1.9-1.7-1.4-17.5-13.4-162.9-11.9-214.1zm24.2 283.8c-13.1 0-23.7-10.6-23.7-23.7s10.6-23.7 23.7-23.7 23.7 10.6 23.7 23.7-10.6 23.7-23.7 23.7zM722.1 644h112.6v34.4h-70.4V698h58.8v31.7h-58.8v22.6h72.4v36.2H722.1V644zm162 57.1h.6c8.3-12.9 18.2-17.8 31.3-17.8 3 0 5.1.4 6.3 1v32.6h-.8c-22.4-3.8-35.6 6.3-35.6 29.5v42.3h-38.2V685.5h36.4v15.6zm78.9 0h.6c8.3-12.9 18.2-17.8 31.3-17.8 3 0 5.1.4 6.3 1v32.6h-.8c-22.4-3.8-35.6 6.3-35.6 29.5v42.3h-38.2V685.5H963v15.6zm39.5 36.2c0-31.3 22.2-54.8 56.6-54.8 34.4 0 56.2 23.5 56.2 54.8s-21.8 54.6-56.2 54.6c-34.4-.1-56.6-23.3-56.6-54.6zm74 0c0-17.4-6.1-29.1-17.8-29.1-11.7 0-17.4 11.7-17.4 29.1 0 17.4 5.7 29.1 17.4 29.1s17.8-11.8 17.8-29.1zm83.1-36.2h.6c8.3-12.9 18.2-17.8 31.3-17.8 3 0 5.1.4 6.3 1v32.6h-.8c-22.4-3.8-35.6 6.3-35.6 29.5v42.3h-38.2V685.5h36.4v15.6z"/>
+                  <path fill="none" d="M718.9 807.7h645v285.4h-645z"/>
+                  <text
+                    fill="#3a6d8b"
+                    style="text-align:center;position:absolute;left:100%;font-size:47px;font-family:system-ui,-apple-system,BlinkMacSystemFont,'.SFNSText-Regular',sans-serif;"
+                    x="50%"
+                    y="848.017"
+                    text-anchor="middle"
+                  >${this._error}</text>
+                </svg>
+              </div>` : nothing
           }
         </div>
         ${this.controls ? this.renderControls() : nothing}

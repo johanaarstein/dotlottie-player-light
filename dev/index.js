@@ -19,7 +19,7 @@
 	 * Copyright 2017 Google LLC
 	 * SPDX-License-Identifier: BSD-3-Clause
 	 */
-	var t;const i$4=window,s$1=i$4.trustedTypes,e$2=s$1?s$1.createPolicy("lit-html",{createHTML:t=>t}):void 0,o$2="$lit$",n$3=`lit$${(Math.random()+"").slice(9)}$`,l$1="?"+n$3,h=`<${l$1}>`,r=document,u=()=>r.createComment(""),d=t=>null===t||"object"!=typeof t&&"function"!=typeof t,c=Array.isArray,v=t=>c(t)||"function"==typeof(null==t?void 0:t[Symbol.iterator]),a="[ \t\n\f\r]",f=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,_=/-->/g,m=/>/g,p=RegExp(`>|${a}(?:([^\\s"'>=/]+)(${a}*=${a}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,"g"),g=/'/g,$=/"/g,y=/^(?:script|style|textarea|title)$/i,w=t=>(i,...s)=>({_$litType$:t,strings:i,values:s}),x$1=w(1),T=Symbol.for("lit-noChange"),A=Symbol.for("lit-nothing"),E=new WeakMap,C=r.createTreeWalker(r,129,null,!1);function P(t,i){if(!Array.isArray(t)||!t.hasOwnProperty("raw"))throw Error("invalid template strings array");return void 0!==e$2?e$2.createHTML(i):i}const V=(t,i)=>{const s=t.length-1,e=[];let l,r=2===i?"<svg>":"",u=f;for(let i=0;i<s;i++){const s=t[i];let d,c,v=-1,a=0;for(;a<s.length&&(u.lastIndex=a,c=u.exec(s),null!==c);)a=u.lastIndex,u===f?"!--"===c[1]?u=_:void 0!==c[1]?u=m:void 0!==c[2]?(y.test(c[2])&&(l=RegExp("</"+c[2],"g")),u=p):void 0!==c[3]&&(u=p):u===p?">"===c[0]?(u=null!=l?l:f,v=-1):void 0===c[1]?v=-2:(v=u.lastIndex-c[2].length,d=c[1],u=void 0===c[3]?p:'"'===c[3]?$:g):u===$||u===g?u=p:u===_||u===m?u=f:(u=p,l=void 0);const w=u===p&&t[i+1].startsWith("/>")?" ":"";r+=u===f?s+h:v>=0?(e.push(d),s.slice(0,v)+o$2+s.slice(v)+n$3+w):s+n$3+(-2===v?(e.push(void 0),i):w);}return [P(t,r+(t[s]||"<?>")+(2===i?"</svg>":"")),e]};class N{constructor({strings:t,_$litType$:i},e){let h;this.parts=[];let r=0,d=0;const c=t.length-1,v=this.parts,[a,f]=V(t,i);if(this.el=N.createElement(a,e),C.currentNode=this.el.content,2===i){const t=this.el.content,i=t.firstChild;i.remove(),t.append(...i.childNodes);}for(;null!==(h=C.nextNode())&&v.length<c;){if(1===h.nodeType){if(h.hasAttributes()){const t=[];for(const i of h.getAttributeNames())if(i.endsWith(o$2)||i.startsWith(n$3)){const s=f[d++];if(t.push(i),void 0!==s){const t=h.getAttribute(s.toLowerCase()+o$2).split(n$3),i=/([.?@])?(.*)/.exec(s);v.push({type:1,index:r,name:i[2],strings:t,ctor:"."===i[1]?H:"?"===i[1]?L:"@"===i[1]?z:k});}else v.push({type:6,index:r});}for(const i of t)h.removeAttribute(i);}if(y.test(h.tagName)){const t=h.textContent.split(n$3),i=t.length-1;if(i>0){h.textContent=s$1?s$1.emptyScript:"";for(let s=0;s<i;s++)h.append(t[s],u()),C.nextNode(),v.push({type:2,index:++r});h.append(t[i],u());}}}else if(8===h.nodeType)if(h.data===l$1)v.push({type:2,index:r});else {let t=-1;for(;-1!==(t=h.data.indexOf(n$3,t+1));)v.push({type:7,index:r}),t+=n$3.length-1;}r++;}}static createElement(t,i){const s=r.createElement("template");return s.innerHTML=t,s}}function S(t,i,s=t,e){var o,n,l,h;if(i===T)return i;let r=void 0!==e?null===(o=s._$Co)||void 0===o?void 0:o[e]:s._$Cl;const u=d(i)?void 0:i._$litDirective$;return (null==r?void 0:r.constructor)!==u&&(null===(n=null==r?void 0:r._$AO)||void 0===n||n.call(r,!1),void 0===u?r=void 0:(r=new u(t),r._$AT(t,s,e)),void 0!==e?(null!==(l=(h=s)._$Co)&&void 0!==l?l:h._$Co=[])[e]=r:s._$Cl=r),void 0!==r&&(i=S(t,r._$AS(t,i.values),r,e)),i}class M{constructor(t,i){this._$AV=[],this._$AN=void 0,this._$AD=t,this._$AM=i;}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(t){var i;const{el:{content:s},parts:e}=this._$AD,o=(null!==(i=null==t?void 0:t.creationScope)&&void 0!==i?i:r).importNode(s,!0);C.currentNode=o;let n=C.nextNode(),l=0,h=0,u=e[0];for(;void 0!==u;){if(l===u.index){let i;2===u.type?i=new R(n,n.nextSibling,this,t):1===u.type?i=new u.ctor(n,u.name,u.strings,this,t):6===u.type&&(i=new Z(n,this,t)),this._$AV.push(i),u=e[++h];}l!==(null==u?void 0:u.index)&&(n=C.nextNode(),l++);}return C.currentNode=r,o}v(t){let i=0;for(const s of this._$AV)void 0!==s&&(void 0!==s.strings?(s._$AI(t,s,i),i+=s.strings.length-2):s._$AI(t[i])),i++;}}class R{constructor(t,i,s,e){var o;this.type=2,this._$AH=A,this._$AN=void 0,this._$AA=t,this._$AB=i,this._$AM=s,this.options=e,this._$Cp=null===(o=null==e?void 0:e.isConnected)||void 0===o||o;}get _$AU(){var t,i;return null!==(i=null===(t=this._$AM)||void 0===t?void 0:t._$AU)&&void 0!==i?i:this._$Cp}get parentNode(){let t=this._$AA.parentNode;const i=this._$AM;return void 0!==i&&11===(null==t?void 0:t.nodeType)&&(t=i.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,i=this){t=S(this,t,i),d(t)?t===A||null==t||""===t?(this._$AH!==A&&this._$AR(),this._$AH=A):t!==this._$AH&&t!==T&&this._(t):void 0!==t._$litType$?this.g(t):void 0!==t.nodeType?this.$(t):v(t)?this.T(t):this._(t);}k(t){return this._$AA.parentNode.insertBefore(t,this._$AB)}$(t){this._$AH!==t&&(this._$AR(),this._$AH=this.k(t));}_(t){this._$AH!==A&&d(this._$AH)?this._$AA.nextSibling.data=t:this.$(r.createTextNode(t)),this._$AH=t;}g(t){var i;const{values:s,_$litType$:e}=t,o="number"==typeof e?this._$AC(t):(void 0===e.el&&(e.el=N.createElement(P(e.h,e.h[0]),this.options)),e);if((null===(i=this._$AH)||void 0===i?void 0:i._$AD)===o)this._$AH.v(s);else {const t=new M(o,this),i=t.u(this.options);t.v(s),this.$(i),this._$AH=t;}}_$AC(t){let i=E.get(t.strings);return void 0===i&&E.set(t.strings,i=new N(t)),i}T(t){c(this._$AH)||(this._$AH=[],this._$AR());const i=this._$AH;let s,e=0;for(const o of t)e===i.length?i.push(s=new R(this.k(u()),this.k(u()),this,this.options)):s=i[e],s._$AI(o),e++;e<i.length&&(this._$AR(s&&s._$AB.nextSibling,e),i.length=e);}_$AR(t=this._$AA.nextSibling,i){var s;for(null===(s=this._$AP)||void 0===s||s.call(this,!1,!0,i);t&&t!==this._$AB;){const i=t.nextSibling;t.remove(),t=i;}}setConnected(t){var i;void 0===this._$AM&&(this._$Cp=t,null===(i=this._$AP)||void 0===i||i.call(this,t));}}class k{constructor(t,i,s,e,o){this.type=1,this._$AH=A,this._$AN=void 0,this.element=t,this.name=i,this._$AM=e,this.options=o,s.length>2||""!==s[0]||""!==s[1]?(this._$AH=Array(s.length-1).fill(new String),this.strings=s):this._$AH=A;}get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}_$AI(t,i=this,s,e){const o=this.strings;let n=!1;if(void 0===o)t=S(this,t,i,0),n=!d(t)||t!==this._$AH&&t!==T,n&&(this._$AH=t);else {const e=t;let l,h;for(t=o[0],l=0;l<o.length-1;l++)h=S(this,e[s+l],i,l),h===T&&(h=this._$AH[l]),n||(n=!d(h)||h!==this._$AH[l]),h===A?t=A:t!==A&&(t+=(null!=h?h:"")+o[l+1]),this._$AH[l]=h;}n&&!e&&this.j(t);}j(t){t===A?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,null!=t?t:"");}}class H extends k{constructor(){super(...arguments),this.type=3;}j(t){this.element[this.name]=t===A?void 0:t;}}const I=s$1?s$1.emptyScript:"";class L extends k{constructor(){super(...arguments),this.type=4;}j(t){t&&t!==A?this.element.setAttribute(this.name,I):this.element.removeAttribute(this.name);}}class z extends k{constructor(t,i,s,e,o){super(t,i,s,e,o),this.type=5;}_$AI(t,i=this){var s;if((t=null!==(s=S(this,t,i,0))&&void 0!==s?s:A)===T)return;const e=this._$AH,o=t===A&&e!==A||t.capture!==e.capture||t.once!==e.once||t.passive!==e.passive,n=t!==A&&(e===A||o);o&&this.element.removeEventListener(this.name,this,e),n&&this.element.addEventListener(this.name,this,t),this._$AH=t;}handleEvent(t){var i,s;"function"==typeof this._$AH?this._$AH.call(null!==(s=null===(i=this.options)||void 0===i?void 0:i.host)&&void 0!==s?s:this.element,t):this._$AH.handleEvent(t);}}class Z{constructor(t,i,s){this.element=t,this.type=6,this._$AN=void 0,this._$AM=i,this.options=s;}get _$AU(){return this._$AM._$AU}_$AI(t){S(this,t);}}const B=i$4.litHtmlPolyfillSupport;null==B||B(N,R),(null!==(t=i$4.litHtmlVersions)&&void 0!==t?t:i$4.litHtmlVersions=[]).push("2.7.5");const D=(t,i,s)=>{var e,o;const n=null!==(e=null==s?void 0:s.renderBefore)&&void 0!==e?e:i;let l=n._$litPart$;if(void 0===l){const t=null!==(o=null==s?void 0:s.renderBefore)&&void 0!==o?o:null;n._$litPart$=l=new R(i.insertBefore(u(),t),t,void 0,null!=s?s:{});}return l._$AI(t),l};
+	var t;const i$4=window,s$1=i$4.trustedTypes,e$2=s$1?s$1.createPolicy("lit-html",{createHTML:t=>t}):void 0,o$2="$lit$",n$3=`lit$${(Math.random()+"").slice(9)}$`,l$1="?"+n$3,h=`<${l$1}>`,r=document,u=()=>r.createComment(""),d=t=>null===t||"object"!=typeof t&&"function"!=typeof t,c=Array.isArray,v=t=>c(t)||"function"==typeof(null==t?void 0:t[Symbol.iterator]),a="[ \t\n\f\r]",f=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,_=/-->/g,m=/>/g,p=RegExp(`>|${a}(?:([^\\s"'>=/]+)(${a}*=${a}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,"g"),g=/'/g,$=/"/g,y=/^(?:script|style|textarea|title)$/i,w=t=>(i,...s)=>({_$litType$:t,strings:i,values:s}),x$1=w(1),T=Symbol.for("lit-noChange"),A=Symbol.for("lit-nothing"),E=new WeakMap,C=r.createTreeWalker(r,129,null,!1);function P(t,i){if(!Array.isArray(t)||!t.hasOwnProperty("raw"))throw Error("invalid template strings array");return void 0!==e$2?e$2.createHTML(i):i}const V=(t,i)=>{const s=t.length-1,e=[];let l,r=2===i?"<svg>":"",u=f;for(let i=0;i<s;i++){const s=t[i];let d,c,v=-1,a=0;for(;a<s.length&&(u.lastIndex=a,c=u.exec(s),null!==c);)a=u.lastIndex,u===f?"!--"===c[1]?u=_:void 0!==c[1]?u=m:void 0!==c[2]?(y.test(c[2])&&(l=RegExp("</"+c[2],"g")),u=p):void 0!==c[3]&&(u=p):u===p?">"===c[0]?(u=null!=l?l:f,v=-1):void 0===c[1]?v=-2:(v=u.lastIndex-c[2].length,d=c[1],u=void 0===c[3]?p:'"'===c[3]?$:g):u===$||u===g?u=p:u===_||u===m?u=f:(u=p,l=void 0);const w=u===p&&t[i+1].startsWith("/>")?" ":"";r+=u===f?s+h:v>=0?(e.push(d),s.slice(0,v)+o$2+s.slice(v)+n$3+w):s+n$3+(-2===v?(e.push(void 0),i):w);}return [P(t,r+(t[s]||"<?>")+(2===i?"</svg>":"")),e]};class N{constructor({strings:t,_$litType$:i},e){let h;this.parts=[];let r=0,d=0;const c=t.length-1,v=this.parts,[a,f]=V(t,i);if(this.el=N.createElement(a,e),C.currentNode=this.el.content,2===i){const t=this.el.content,i=t.firstChild;i.remove(),t.append(...i.childNodes);}for(;null!==(h=C.nextNode())&&v.length<c;){if(1===h.nodeType){if(h.hasAttributes()){const t=[];for(const i of h.getAttributeNames())if(i.endsWith(o$2)||i.startsWith(n$3)){const s=f[d++];if(t.push(i),void 0!==s){const t=h.getAttribute(s.toLowerCase()+o$2).split(n$3),i=/([.?@])?(.*)/.exec(s);v.push({type:1,index:r,name:i[2],strings:t,ctor:"."===i[1]?H:"?"===i[1]?L:"@"===i[1]?z:k});}else v.push({type:6,index:r});}for(const i of t)h.removeAttribute(i);}if(y.test(h.tagName)){const t=h.textContent.split(n$3),i=t.length-1;if(i>0){h.textContent=s$1?s$1.emptyScript:"";for(let s=0;s<i;s++)h.append(t[s],u()),C.nextNode(),v.push({type:2,index:++r});h.append(t[i],u());}}}else if(8===h.nodeType)if(h.data===l$1)v.push({type:2,index:r});else {let t=-1;for(;-1!==(t=h.data.indexOf(n$3,t+1));)v.push({type:7,index:r}),t+=n$3.length-1;}r++;}}static createElement(t,i){const s=r.createElement("template");return s.innerHTML=t,s}}function S(t,i,s=t,e){var o,n,l,h;if(i===T)return i;let r=void 0!==e?null===(o=s._$Co)||void 0===o?void 0:o[e]:s._$Cl;const u=d(i)?void 0:i._$litDirective$;return (null==r?void 0:r.constructor)!==u&&(null===(n=null==r?void 0:r._$AO)||void 0===n||n.call(r,!1),void 0===u?r=void 0:(r=new u(t),r._$AT(t,s,e)),void 0!==e?(null!==(l=(h=s)._$Co)&&void 0!==l?l:h._$Co=[])[e]=r:s._$Cl=r),void 0!==r&&(i=S(t,r._$AS(t,i.values),r,e)),i}class M{constructor(t,i){this._$AV=[],this._$AN=void 0,this._$AD=t,this._$AM=i;}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(t){var i;const{el:{content:s},parts:e}=this._$AD,o=(null!==(i=null==t?void 0:t.creationScope)&&void 0!==i?i:r).importNode(s,!0);C.currentNode=o;let n=C.nextNode(),l=0,h=0,u=e[0];for(;void 0!==u;){if(l===u.index){let i;2===u.type?i=new R(n,n.nextSibling,this,t):1===u.type?i=new u.ctor(n,u.name,u.strings,this,t):6===u.type&&(i=new Z(n,this,t)),this._$AV.push(i),u=e[++h];}l!==(null==u?void 0:u.index)&&(n=C.nextNode(),l++);}return C.currentNode=r,o}v(t){let i=0;for(const s of this._$AV)void 0!==s&&(void 0!==s.strings?(s._$AI(t,s,i),i+=s.strings.length-2):s._$AI(t[i])),i++;}}class R{constructor(t,i,s,e){var o;this.type=2,this._$AH=A,this._$AN=void 0,this._$AA=t,this._$AB=i,this._$AM=s,this.options=e,this._$Cp=null===(o=null==e?void 0:e.isConnected)||void 0===o||o;}get _$AU(){var t,i;return null!==(i=null===(t=this._$AM)||void 0===t?void 0:t._$AU)&&void 0!==i?i:this._$Cp}get parentNode(){let t=this._$AA.parentNode;const i=this._$AM;return void 0!==i&&11===(null==t?void 0:t.nodeType)&&(t=i.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,i=this){t=S(this,t,i),d(t)?t===A||null==t||""===t?(this._$AH!==A&&this._$AR(),this._$AH=A):t!==this._$AH&&t!==T&&this._(t):void 0!==t._$litType$?this.g(t):void 0!==t.nodeType?this.$(t):v(t)?this.T(t):this._(t);}k(t){return this._$AA.parentNode.insertBefore(t,this._$AB)}$(t){this._$AH!==t&&(this._$AR(),this._$AH=this.k(t));}_(t){this._$AH!==A&&d(this._$AH)?this._$AA.nextSibling.data=t:this.$(r.createTextNode(t)),this._$AH=t;}g(t){var i;const{values:s,_$litType$:e}=t,o="number"==typeof e?this._$AC(t):(void 0===e.el&&(e.el=N.createElement(P(e.h,e.h[0]),this.options)),e);if((null===(i=this._$AH)||void 0===i?void 0:i._$AD)===o)this._$AH.v(s);else {const t=new M(o,this),i=t.u(this.options);t.v(s),this.$(i),this._$AH=t;}}_$AC(t){let i=E.get(t.strings);return void 0===i&&E.set(t.strings,i=new N(t)),i}T(t){c(this._$AH)||(this._$AH=[],this._$AR());const i=this._$AH;let s,e=0;for(const o of t)e===i.length?i.push(s=new R(this.k(u()),this.k(u()),this,this.options)):s=i[e],s._$AI(o),e++;e<i.length&&(this._$AR(s&&s._$AB.nextSibling,e),i.length=e);}_$AR(t=this._$AA.nextSibling,i){var s;for(null===(s=this._$AP)||void 0===s||s.call(this,!1,!0,i);t&&t!==this._$AB;){const i=t.nextSibling;t.remove(),t=i;}}setConnected(t){var i;void 0===this._$AM&&(this._$Cp=t,null===(i=this._$AP)||void 0===i||i.call(this,t));}}class k{constructor(t,i,s,e,o){this.type=1,this._$AH=A,this._$AN=void 0,this.element=t,this.name=i,this._$AM=e,this.options=o,s.length>2||""!==s[0]||""!==s[1]?(this._$AH=Array(s.length-1).fill(new String),this.strings=s):this._$AH=A;}get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}_$AI(t,i=this,s,e){const o=this.strings;let n=!1;if(void 0===o)t=S(this,t,i,0),n=!d(t)||t!==this._$AH&&t!==T,n&&(this._$AH=t);else {const e=t;let l,h;for(t=o[0],l=0;l<o.length-1;l++)h=S(this,e[s+l],i,l),h===T&&(h=this._$AH[l]),n||(n=!d(h)||h!==this._$AH[l]),h===A?t=A:t!==A&&(t+=(null!=h?h:"")+o[l+1]),this._$AH[l]=h;}n&&!e&&this.j(t);}j(t){t===A?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,null!=t?t:"");}}class H extends k{constructor(){super(...arguments),this.type=3;}j(t){this.element[this.name]=t===A?void 0:t;}}const I=s$1?s$1.emptyScript:"";class L extends k{constructor(){super(...arguments),this.type=4;}j(t){t&&t!==A?this.element.setAttribute(this.name,I):this.element.removeAttribute(this.name);}}class z extends k{constructor(t,i,s,e,o){super(t,i,s,e,o),this.type=5;}_$AI(t,i=this){var s;if((t=null!==(s=S(this,t,i,0))&&void 0!==s?s:A)===T)return;const e=this._$AH,o=t===A&&e!==A||t.capture!==e.capture||t.once!==e.once||t.passive!==e.passive,n=t!==A&&(e===A||o);o&&this.element.removeEventListener(this.name,this,e),n&&this.element.addEventListener(this.name,this,t),this._$AH=t;}handleEvent(t){var i,s;"function"==typeof this._$AH?this._$AH.call(null!==(s=null===(i=this.options)||void 0===i?void 0:i.host)&&void 0!==s?s:this.element,t):this._$AH.handleEvent(t);}}class Z{constructor(t,i,s){this.element=t,this.type=6,this._$AN=void 0,this._$AM=i,this.options=s;}get _$AU(){return this._$AM._$AU}_$AI(t){S(this,t);}}const B=i$4.litHtmlPolyfillSupport;null==B||B(N,R),(null!==(t=i$4.litHtmlVersions)&&void 0!==t?t:i$4.litHtmlVersions=[]).push("2.8.0");const D=(t,i,s)=>{var e,o;const n=null!==(e=null==s?void 0:s.renderBefore)&&void 0!==e?e:i;let l=n._$litPart$;if(void 0===l){const t=null!==(o=null==s?void 0:s.renderBefore)&&void 0!==o?o:null;n._$litPart$=l=new R(i.insertBefore(u(),t),t,void 0,null!=s?s:{});}return l._$AI(t),l};
 
 	/**
 	 * @license
@@ -12749,38 +12749,6 @@
 	var lottie_lightExports = lottie_light.exports;
 	var Lottie = /*@__PURE__*/getDefaultExportFromCjs(lottie_lightExports);
 
-	exports.PlayerState = void 0;
-	(function(PlayerState) {
-	    PlayerState["Completed"] = 'completed';
-	    PlayerState["Destroyed"] = 'destroyed';
-	    PlayerState["Error"] = 'error';
-	    PlayerState["Frozen"] = 'frozen';
-	    PlayerState["Loading"] = 'loading';
-	    PlayerState["Paused"] = 'paused';
-	    PlayerState["Playing"] = 'playing';
-	    PlayerState["Stopped"] = 'stopped';
-	})(exports.PlayerState || (exports.PlayerState = {}));
-	exports.PlayMode = void 0;
-	(function(PlayMode) {
-	    PlayMode["Bounce"] = 'bounce';
-	    PlayMode["Normal"] = 'normal';
-	})(exports.PlayMode || (exports.PlayMode = {}));
-	exports.PlayerEvents = void 0;
-	(function(PlayerEvents) {
-	    PlayerEvents["Complete"] = 'complete';
-	    PlayerEvents["Destroyed"] = 'destroyed';
-	    PlayerEvents["Error"] = 'error';
-	    PlayerEvents["Frame"] = 'frame';
-	    PlayerEvents["Freeze"] = 'freeze';
-	    PlayerEvents["Load"] = 'load';
-	    PlayerEvents["Loop"] = 'loop';
-	    PlayerEvents["Pause"] = 'pause';
-	    PlayerEvents["Play"] = 'play';
-	    PlayerEvents["Ready"] = 'ready';
-	    PlayerEvents["Rendered"] = 'rendered';
-	    PlayerEvents["Stop"] = 'stop';
-	})(exports.PlayerEvents || (exports.PlayerEvents = {}));
-
 	// DEFLATE is a complex format; to read this code, you should probably check the RFC first:
 	// https://tools.ietf.org/html/rfc1951
 	// You may also wish to take a look at the guide I made about this program:
@@ -15961,7 +15929,7 @@
 	                case 6:
 	                    unzipped = _state.sent(), manifestFile = strFromU8(unzipped['manifest.json']), manifest = JSON.parse(manifestFile);
 	                    if (!('animations' in manifest)) throw new Error('Manifest not found');
-	                    if (!manifest.animations.length) throw new Error('No animations listed in the manifest');
+	                    if (!manifest.animations.length) throw new Error('No animations listed in manifest');
 	                    id = manifest.animations[0].id, lottieString = strFromU8((_unzipped = unzipped) === null || _unzipped === void 0 ? void 0 : _unzipped["animations/".concat(id, ".json")]);
 	                    return [
 	                        4,
@@ -16003,7 +15971,7 @@
 	                    ];
 	                case 8:
 	                    _state.sent();
-	                    throw new Error('Error loading Lottie file.');
+	                    throw new Error('Unable to load file');
 	                case 9:
 	                    return [
 	                        2
@@ -16015,6 +15983,38 @@
 	        return _ref.apply(this, arguments);
 	    };
 	}();
+
+	exports.PlayerState = void 0;
+	(function(PlayerState) {
+	    PlayerState["Completed"] = 'completed';
+	    PlayerState["Destroyed"] = 'destroyed';
+	    PlayerState["Error"] = 'error';
+	    PlayerState["Frozen"] = 'frozen';
+	    PlayerState["Loading"] = 'loading';
+	    PlayerState["Paused"] = 'paused';
+	    PlayerState["Playing"] = 'playing';
+	    PlayerState["Stopped"] = 'stopped';
+	})(exports.PlayerState || (exports.PlayerState = {}));
+	exports.PlayMode = void 0;
+	(function(PlayMode) {
+	    PlayMode["Bounce"] = 'bounce';
+	    PlayMode["Normal"] = 'normal';
+	})(exports.PlayMode || (exports.PlayMode = {}));
+	exports.PlayerEvents = void 0;
+	(function(PlayerEvents) {
+	    PlayerEvents["Complete"] = 'complete';
+	    PlayerEvents["Destroyed"] = 'destroyed';
+	    PlayerEvents["Error"] = 'error';
+	    PlayerEvents["Frame"] = 'frame';
+	    PlayerEvents["Freeze"] = 'freeze';
+	    PlayerEvents["Load"] = 'load';
+	    PlayerEvents["Loop"] = 'loop';
+	    PlayerEvents["Pause"] = 'pause';
+	    PlayerEvents["Play"] = 'play';
+	    PlayerEvents["Ready"] = 'ready';
+	    PlayerEvents["Rendered"] = 'rendered';
+	    PlayerEvents["Stop"] = 'stop';
+	})(exports.PlayerEvents || (exports.PlayerEvents = {}));
 
 	function _tagged_template_literal$1(strings, raw) {
 	    if (!raw) {
@@ -16028,7 +16028,7 @@
 	}
 	function _templateObject$1() {
 	    var data = _tagged_template_literal$1([
-	        "*{box-sizing:border-box}:host{--lottie-player-toolbar-height:35px;--lottie-player-toolbar-background-color:#FFF;--lottie-player-toolbar-icon-color:#000;--lottie-player-toolbar-icon-hover-color:#000;--lottie-player-toolbar-icon-active-color:#4285f4;--lottie-player-seeker-track-color:rgba(0, 0, 0, 0.2);--lottie-player-seeker-thumb-color:#4285f4;--lottie-player-seeker-display:block;display:block;width:100%;height:100%}@media (prefers-color-scheme:dark){:host{--lottie-player-toolbar-background-color:#000;--lottie-player-toolbar-icon-color:#FFF;--lottie-player-toolbar-icon-hover-color:#FFF;--lottie-player-seeker-track-color:rgba(255, 255, 255, 0.6)}}.main{display:flex;flex-direction:column;height:100%;width:100%}.animation{width:100%;height:100%;display:flex}.animation.controls{height:calc(100% - 35px)}.toolbar{display:flex;align-items:center;justify-items:center;background:var(--lottie-player-toolbar-background-color);margin:0 5px;height:35px;padding:5px;border-radius:5px}.toolbar button{cursor:pointer;fill:var(--lottie-player-toolbar-icon-color);display:flex;background:0 0;border:0;padding:0;outline:0;height:100%}.toolbar button.active{fill:var(--lottie-player-toolbar-icon-active-color)}.toolbar button:focus{outline:0}.toolbar button svg>*{fill:inherit}.toolbar button.disabled svg{display:none}.seeker,.seeker::-webkit-slider-runnable-track,.seeker::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;outline:0}.seeker{-webkit-appearance:none;appearance:none;width:95%;background-color:var(--lottie-player-toolbar-background-color);display:var(--lottie-player-seeker-display);color:var(--lottie-player-seeker-thumb-color)}.seeker::-webkit-slider-runnable-track{width:100%;height:5px;cursor:pointer;background-color:var(--lottie-player-seeker-track-color);border-radius:3px}.seeker::-webkit-progress-value{background-color:var(--lottie-player-seeker-thumb-color)}.seeker::-webkit-slider-thumb{height:15px;width:15px;border-radius:50%;background-color:var(--lottie-player-seeker-thumb-color);cursor:pointer;-webkit-appearance:none;appearance:none;margin-top:-5px}.seeker:focus::-webkit-slider-runnable-track{background-color:var(--lottie-player-seeker-track-color)}.seeker::-moz-range-track{width:100%;height:5px;cursor:pointer;background-color:var(--lottie-player-seeker-track-color);border-radius:3px;border:0}.seeker::-moz-range-progress{background-color:var(--lottie-player-seeker-thumb-color);height:5px;border-radius:3px}.seeker::-moz-range-thumb{height:15px;width:15px;border-radius:50%;background-color:var(--lottie-player-seeker-thumb-color);border:0;cursor:pointer}.seeker::-ms-track{width:100%;height:5px;cursor:pointer;background:0 0;border-color:transparent;color:transparent}.seeker::-ms-fill-upper{background:var(--lottie-player-seeker-track-color);border-radius:3px}.seeker::-ms-fill-lower{background-color:var(--lottie-player-seeker-thumb-color);border-radius:3px}.seeker::-ms-thumb{border:0;height:15px;width:15px;border-radius:50%;background:var(--lottie-player-seeker-thumb-color);cursor:pointer}.seeker:focus::-ms-fill-lower{background:var(--lottie-player-seeker-track-color)}.seeker:focus::-ms-fill-upper{background:var(--lottie-player-seeker-track-color)}.error{display:flex;margin:auto;justify-content:center;height:100%;align-items:center}"
+	        "*{box-sizing:border-box}:host{--lottie-player-toolbar-height:35px;--lottie-player-toolbar-background-color:#FFF;--lottie-player-toolbar-icon-color:#000;--lottie-player-toolbar-icon-hover-color:#000;--lottie-player-toolbar-icon-active-color:#4285f4;--lottie-player-seeker-track-color:rgba(0, 0, 0, 0.2);--lottie-player-seeker-thumb-color:#4285f4;--lottie-player-seeker-display:block;display:block;width:100%;height:100%}@media (prefers-color-scheme:dark){:host{--lottie-player-toolbar-background-color:#000;--lottie-player-toolbar-icon-color:#FFF;--lottie-player-toolbar-icon-hover-color:#FFF;--lottie-player-seeker-track-color:rgba(255, 255, 255, 0.6)}}.main{display:flex;flex-direction:column;height:100%;width:100%}.animation{width:100%;height:100%;display:flex}.animation.controls{height:calc(100% - 35px)}.toolbar{display:flex;align-items:center;justify-items:center;background:var(--lottie-player-toolbar-background-color);margin:0 5px;height:35px;padding:5px;border-radius:5px}.toolbar.has-error{pointer-events:none;opacity:.5}.toolbar button{cursor:pointer;fill:var(--lottie-player-toolbar-icon-color);display:flex;background:0 0;border:0;padding:0;outline:0;height:100%}.toolbar button.active{fill:var(--lottie-player-toolbar-icon-active-color)}.toolbar button:focus{outline:0}.toolbar button svg>*{fill:inherit}.toolbar button.disabled svg{display:none}.seeker,.seeker::-webkit-slider-runnable-track,.seeker::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;outline:0}.seeker{-webkit-appearance:none;appearance:none;width:95%;background-color:var(--lottie-player-toolbar-background-color);display:var(--lottie-player-seeker-display);color:var(--lottie-player-seeker-thumb-color)}.seeker::-webkit-slider-runnable-track{width:100%;height:5px;cursor:pointer;background-color:var(--lottie-player-seeker-track-color);border-radius:3px}.seeker::-webkit-progress-value{background-color:var(--lottie-player-seeker-thumb-color)}.seeker::-webkit-slider-thumb{height:15px;width:15px;border-radius:50%;background-color:var(--lottie-player-seeker-thumb-color);cursor:pointer;-webkit-appearance:none;appearance:none;margin-top:-5px}.seeker:focus::-webkit-slider-runnable-track{background-color:var(--lottie-player-seeker-track-color)}.seeker::-moz-range-track{width:100%;height:5px;cursor:pointer;background-color:var(--lottie-player-seeker-track-color);border-radius:3px;border:0}.seeker::-moz-range-progress{background-color:var(--lottie-player-seeker-thumb-color);height:5px;border-radius:3px}.seeker::-moz-range-thumb{height:15px;width:15px;border-radius:50%;background-color:var(--lottie-player-seeker-thumb-color);border:0;cursor:pointer}.seeker::-ms-track{width:100%;height:5px;cursor:pointer;background:0 0;border-color:transparent;color:transparent}.seeker::-ms-fill-upper{background:var(--lottie-player-seeker-track-color);border-radius:3px}.seeker::-ms-fill-lower{background-color:var(--lottie-player-seeker-thumb-color);border-radius:3px}.seeker::-ms-thumb{border:0;height:15px;width:15px;border-radius:50%;background:var(--lottie-player-seeker-thumb-color);cursor:pointer}.seeker:focus::-ms-fill-lower{background:var(--lottie-player-seeker-track-color)}.seeker:focus::-ms-fill-upper{background:var(--lottie-player-seeker-track-color)}.error{display:flex;margin:auto;justify-content:center;height:100%;align-items:center}.error svg{width:100%;height:auto}"
 	    ]);
 	    _templateObject$1 = function _templateObject() {
 	        return data;
@@ -16360,7 +16360,8 @@
 	}
 	function _templateObject2() {
 	    var data = _tagged_template_literal([
-	        '<div class="lottie-controls toolbar" aria-label="Lottie Animation Controls" class="toolbar"><button @click="',
+	        '<div class="',
+	        '" aria-label="Lottie Animation Controls"><button @click="',
 	        '" class="',
 	        '" style="align-items:center" tabindex="0" aria-label="Toggle Play/Pause">',
 	        '</button> <button @click="',
@@ -16383,7 +16384,8 @@
 	}
 	function _templateObject3() {
 	    var data = _tagged_template_literal([
-	        '<div class="error">⚠️</div>'
+	        '<div class="error"><svg preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="1920" height="1080" viewBox="0 0 1920 1080"><path fill="#fff" d="M0 0h1920v1080H0z"/><path fill="#3a6d8b" d="M1190.2 531 1007 212.4c-22-38.2-77.2-38-98.8.5L729.5 531.3c-21.3 37.9 6.1 84.6 49.5 84.6l361.9.3c43.7 0 71.1-47.3 49.3-85.2zM937.3 288.7c.2-7.5 3.3-23.9 23.2-23.9 16.3 0 23 16.1 23 23.5 0 55.3-10.7 197.2-12.2 214.5-.1 1-.9 1.7-1.9 1.7h-18.3c-1 0-1.8-.7-1.9-1.7-1.4-17.5-13.4-162.9-11.9-214.1zm24.2 283.8c-13.1 0-23.7-10.6-23.7-23.7s10.6-23.7 23.7-23.7 23.7 10.6 23.7 23.7-10.6 23.7-23.7 23.7zM722.1 644h112.6v34.4h-70.4V698h58.8v31.7h-58.8v22.6h72.4v36.2H722.1V644zm162 57.1h.6c8.3-12.9 18.2-17.8 31.3-17.8 3 0 5.1.4 6.3 1v32.6h-.8c-22.4-3.8-35.6 6.3-35.6 29.5v42.3h-38.2V685.5h36.4v15.6zm78.9 0h.6c8.3-12.9 18.2-17.8 31.3-17.8 3 0 5.1.4 6.3 1v32.6h-.8c-22.4-3.8-35.6 6.3-35.6 29.5v42.3h-38.2V685.5H963v15.6zm39.5 36.2c0-31.3 22.2-54.8 56.6-54.8 34.4 0 56.2 23.5 56.2 54.8s-21.8 54.6-56.2 54.6c-34.4-.1-56.6-23.3-56.6-54.6zm74 0c0-17.4-6.1-29.1-17.8-29.1-11.7 0-17.4 11.7-17.4 29.1 0 17.4 5.7 29.1 17.4 29.1s17.8-11.8 17.8-29.1zm83.1-36.2h.6c8.3-12.9 18.2-17.8 31.3-17.8 3 0 5.1.4 6.3 1v32.6h-.8c-22.4-3.8-35.6 6.3-35.6 29.5v42.3h-38.2V685.5h36.4v15.6z"/><path fill="none" d="M718.9 807.7h645v285.4h-645z"/><text fill="#3a6d8b" style="text-align:center;position:absolute;left:100%;font-size:47px;font-family:system-ui,-apple-system,BlinkMacSystemFont,\'.SFNSText-Regular\',sans-serif" x="50%" y="848.017" text-anchor="middle">',
+	        "</text></svg></div>"
 	    ]);
 	    _templateObject3 = function _templateObject() {
 	        return data;
@@ -16448,6 +16450,7 @@
 	   */ _this.subframe = false;
 	        _this._lottie = null;
 	        _this._counter = 0;
+	        _this._error = 'Something went wrong';
 	        return _this;
 	    }
 	    _create_class(DotLottiePlayer, [
@@ -16458,10 +16461,7 @@
 	   */ function load(src) {
 	                var _this = this;
 	                return _async_to_generator(function() {
-	                    var _this_preserveAspectRatio, preserveAspectRatio, // segment =
-	                    //   typeof this.segment === 'string' ?
-	                    //     (this.segment as string).split(',', 2).map(Number) : this.segment,
-	                    options, srcParsed, _tmp, err, _loopComplete;
+	                    var _this_preserveAspectRatio, preserveAspectRatio, options, srcParsed, _tmp, err, _err, _loopComplete;
 	                    return _ts_generator(this, function(_state) {
 	                        switch(_state.label){
 	                            case 0:
@@ -16492,7 +16492,7 @@
 	                                    6
 	                                ]);
 	                                if (typeof src !== 'string' && typeof src !== 'object') {
-	                                    throw new Error('No Lottie animation to load, or the file is corrupted.');
+	                                    throw new Error('Broken file or invalid file format');
 	                                }
 	                                if (!(typeof src === 'string')) return [
 	                                    3,
@@ -16513,7 +16513,9 @@
 	                                _state.label = 4;
 	                            case 4:
 	                                srcParsed = _tmp;
-	                                if (!_this.isLottie(srcParsed)) throw new Error('dotLottie: Load method failed. Object is not a valid Lottie.');
+	                                if (!_this.isLottie(srcParsed)) {
+	                                    throw new Error('Broken or corrupted file');
+	                                }
 	                                // Clear previous animation, if any
 	                                if (_this._lottie) _this._lottie.destroy();
 	                                // Initialize lottie player and load animation
@@ -16527,6 +16529,7 @@
 	                            case 5:
 	                                err = _state.sent();
 	                                console.error(err);
+	                                if (err instanceof Error) _this._error = (_err = err) === null || _err === void 0 ? void 0 : _err.message;
 	                                _this.currentState = exports.PlayerState.Error;
 	                                _this.dispatchEvent(new CustomEvent(exports.PlayerEvents.Error));
 	                                return [
@@ -16972,11 +16975,9 @@
 	            key: "renderControls",
 	            value: function renderControls() {
 	                var _this = this;
-	                var isPlaying = this.currentState === exports.PlayerState.Playing;
-	                var isPaused = this.currentState === exports.PlayerState.Paused;
-	                var isStopped = this.currentState === exports.PlayerState.Stopped;
+	                var isPlaying = this.currentState === exports.PlayerState.Playing, isPaused = this.currentState === exports.PlayerState.Paused, isStopped = this.currentState === exports.PlayerState.Stopped, isError = this.currentState === exports.PlayerState.Error;
 	                var _this_seeker, _this_seeker1;
-	                return x$1(_templateObject2(), this.togglePlay, isPlaying || isPaused ? 'active' : '', isPlaying ? x$1(_templateObject()) : x$1(_templateObject1()), this.stop, isStopped ? 'active' : '', (_this_seeker = this.seeker) !== null && _this_seeker !== void 0 ? _this_seeker : 0, this._handleSeekChange, function() {
+	                return x$1(_templateObject2(), "lottie-controls toolbar ".concat(isError ? 'has-error' : ''), this.togglePlay, isPlaying || isPaused ? 'active' : '', isPlaying ? x$1(_templateObject()) : x$1(_templateObject1()), this.stop, isStopped ? 'active' : '', (_this_seeker = this.seeker) !== null && _this_seeker !== void 0 ? _this_seeker : 0, this._handleSeekChange, function() {
 	                    _this._prevState = _this.currentState;
 	                    _this.freeze();
 	                }, function() {
@@ -16990,7 +16991,7 @@
 	                var _document_documentElement, _document;
 	                var className = this.controls ? 'main controls' : 'main', animationClass = this.controls ? 'animation controls' : 'animation';
 	                var _this_description;
-	                return x$1(_templateObject4(), "animation-container ".concat(className), this.description ? (_document = document) === null || _document === void 0 ? void 0 : (_document_documentElement = _document.documentElement) === null || _document_documentElement === void 0 ? void 0 : _document_documentElement.lang : 'en', (_this_description = this.description) !== null && _this_description !== void 0 ? _this_description : 'Lottie animation', animationClass, this.background, this.currentState === exports.PlayerState.Error ? x$1(_templateObject3()) : A, this.controls ? this.renderControls() : A);
+	                return x$1(_templateObject4(), "animation-container ".concat(className), this.description ? (_document = document) === null || _document === void 0 ? void 0 : (_document_documentElement = _document.documentElement) === null || _document_documentElement === void 0 ? void 0 : _document_documentElement.lang : 'en', (_this_description = this.description) !== null && _this_description !== void 0 ? _this_description : 'Lottie animation', animationClass, this.background, this.currentState === exports.PlayerState.Error ? x$1(_templateObject3(), this._error) : A, this.controls ? this.renderControls() : A);
 	            }
 	        }
 	    ], [
@@ -17088,7 +17089,7 @@
 	    n$1({
 	        type: Array
 	    }),
-	    _ts_metadata("design:type", Object)
+	    _ts_metadata("design:type", typeof AnimationSegment === "undefined" ? Object : AnimationSegment)
 	], exports.DotLottiePlayer.prototype, "segment", void 0);
 	_ts_decorate([
 	    n$1({

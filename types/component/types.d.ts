@@ -1,5 +1,5 @@
+import { DotLottiePlayer } from '.';
 import type { Unzipped } from 'fflate';
-import type { DotLottiePlayer } from '.';
 export declare enum PlayerState {
     Completed = "completed",
     Destroyed = "destroyed",

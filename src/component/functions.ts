@@ -1,8 +1,14 @@
 import { strFromU8, unzip } from 'fflate'
 import { Buffer } from 'buffer'
 
-import type { LottieAnimation, LottieAssets, LottieManifest } from './types'
-import type { ObjectFit } from './types'
+import type {
+  Unzipped
+} from 'fflate'
+import type {
+  LottieAssets,
+  LottieManifest,
+  ObjectFit
+} from './types'
 
 const aspectRatio = (objectFit: ObjectFit) => {
   switch (objectFit) {
@@ -26,26 +32,29 @@ const aspectRatio = (objectFit: ObjectFit) => {
     try {
       const result = await fetch(path)
 
-      if (ext === 'json') return await result.json()
+      if (ext === 'json')
+        return await result.json()
 
       const buffer = new Uint8Array(await result.arrayBuffer()),
-        unzipped = await new Promise<LottieAnimation>((resolve, reject) => {
+        unzipped = await new Promise<Unzipped>((resolve, reject) => {
           unzip(buffer, (err, file) => {
             if (err) reject(err)
-            resolve(file as LottieAnimation)
+            resolve(file)
           })
         }),
 
-        manifestFile: string | undefined = strFromU8(unzipped['manifest.json']),
-        manifest: LottieManifest = JSON.parse(manifestFile as string)
+        manifestFile = strFromU8(unzipped['manifest.json']),
+        manifest: LottieManifest = JSON.parse(manifestFile)
 
-      if (!('animations' in manifest)) throw new Error('Manifest not found')
-      if (!manifest.animations.length) throw new Error('No animations listed in the manifest')
+      if (!('animations' in manifest))
+        throw new Error('Manifest not found')
+      if (!manifest.animations.length)
+        throw new Error('No animations listed in manifest')
 
       const { id } = manifest.animations[0],
 
         lottieString = strFromU8(unzipped?.[`animations/${id}.json`]),
-        lottieJson = await JSON.parse(lottieString as string)
+        lottieJson = await JSON.parse(lottieString)
 
       if ('assets' in lottieJson) {
         Promise.all(lottieJson.assets.map((asset: LottieAssets) => {
@@ -84,7 +93,7 @@ const aspectRatio = (objectFit: ObjectFit) => {
       return lottieJson
 
     } catch (err) {
-      throw new Error('Error loading Lottie file.')
+      throw new Error('Unable to load file')
     }
   }
 
