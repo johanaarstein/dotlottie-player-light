@@ -218,7 +218,7 @@ export class DotLottiePlayer extends LitElement {
       // Calculate and save the current progress of the animation
       this._lottie.addEventListener<AnimationEventName>('enterFrame', () => {
         const { currentFrame, totalFrames } = this._lottie as AnimationItem
-        this.seeker = (currentFrame / totalFrames) * 100
+        this.seeker = Math.floor((currentFrame / totalFrames) * 100)
 
         this.dispatchEvent(
           new CustomEvent(PlayerEvents.Frame, {
@@ -431,10 +431,12 @@ export class DotLottiePlayer extends LitElement {
 
     // Calculate and set the frame number
     const frame =
-      matches[2] === '%' ? (this._lottie.totalFrames * Number(matches[1])) / 100 : Number(matches[1])
+      matches[2] === '%' ?
+        (this._lottie.totalFrames * Number(matches[1])) / 100 :
+        Number(matches[1])
 
     // Set seeker to new frame number
-    this.seeker = Number(frame)
+    this.seeker = frame
 
     // Send lottie player to the new frame
     if (this.currentState === PlayerState.Playing) {
@@ -651,27 +653,36 @@ export class DotLottiePlayer extends LitElement {
             <path d="M6 6h12v12H6V6z" />
           </svg>
         </button>
-        <input
-          class="seeker"
-          type="range"
-          min="0"
-          max="100"
-          value=${this.seeker ?? 0}
-          @input=${this._handleSeekChange}
-          @mousedown=${() => {
-            this._prevState = this.currentState
-            this.freeze()
-          }}
-          @mouseup=${() => {
-            this._prevState === PlayerState.Playing && this.play()
-          }}
-          aria-valuemin="0"
-          aria-valuemax="100"
-          role="slider"
-          aria-valuenow=${this.seeker ?? 0}
-          tabindex="0"
-          aria-label="Slider for search"
-        />
+        <div class="progress-container">
+          <input
+            class="seeker"
+            type="range"
+            min="0"
+            max="100"
+            step="1"
+            value=${(this.seeker ?? 0).toString()}
+            @change=${this._handleSeekChange}
+            @mousedown=${() => {
+              this._prevState = this.currentState
+              this.freeze()
+            }}
+            @mouseup=${() => {
+              this._prevState === PlayerState.Playing && this.play()
+            }}
+            aria-valuemin="0"
+            aria-valuemax="100"
+            role="slider"
+            aria-valuenow=${(this.seeker ?? 0).toString() }
+            tabindex="0"
+            aria-label="Slider for search"
+          />
+          <progress
+            min="0"
+            max="100"
+            value=${(this.seeker ?? 0).toString() }
+          >
+          </progress>
+        </div>
         <button
           @click=${this.toggleLooping}
           class=${this.loop ? 'active' : ''}
