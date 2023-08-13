@@ -401,6 +401,7 @@ export class DotLottiePlayer extends LitElement {
     if (!this._lottie) return
 
     this.currentState = PlayerState.Stopped
+    this.seeker = 0
 
     this._counter = 0
     this._lottie.stop()
@@ -445,9 +446,9 @@ export class DotLottiePlayer extends LitElement {
 
     // Send lottie player to the new frame
     if (this.currentState === PlayerState.Playing) {
-      this._lottie.goToAndPlay(frame, true)
+      this._lottie.goToAndPlay(value, true)
     } else {
-      this._lottie.goToAndStop(frame, true)
+      this._lottie.goToAndStop(value, true)
       this._lottie.pause()
     }
   }
@@ -522,7 +523,8 @@ export class DotLottiePlayer extends LitElement {
     if (!this._lottie) return
     
     const { currentFrame, playDirection, totalFrames } = this._lottie
-    if (this.currentState === PlayerState.Playing) return this.pause()
+    if (this.currentState === PlayerState.Playing)
+      return this.pause()
     if (this.currentState === PlayerState.Completed) {
       this.currentState = PlayerState.Playing
       if (this.mode === PlayMode.Bounce) {
@@ -685,6 +687,7 @@ export class DotLottiePlayer extends LitElement {
           <progress
             min="0"
             max="100"
+            step="1"
             value=${this.seeker}
           >
           </progress>
