@@ -342,11 +342,16 @@ export class DotLottiePlayer extends LitElement {
   /**
    * Handles click and drag actions on the progress track
    */
-  private _handleSeekChange(event: Event & { target: HTMLInputElement }) {
-    if (!event.target || !this._lottie || isNaN(Number(event.target.value))) return
+  private _handleSeekChange(e: Event & { target: HTMLInputElement }) {
+    e.preventDefault()
+    if (
+      !e.target ||
+      !this._lottie ||
+      isNaN(Number(e.target.value))
+    ) return
 
     const frame: number =
-      Math.floor((Number(event.target.value) / 100) * this._lottie.totalFrames)
+      Math.floor((Number(e.target.value) / 100) * this._lottie.totalFrames)
 
     this.seek(frame)
   }
@@ -620,7 +625,7 @@ export class DotLottiePlayer extends LitElement {
 
     return html`
       <div
-        class=${`lottie-controls toolbar ${isError ? 'has-error' : ''}`}
+        class=${`lottie-controls toolbar${isError ? ' has-error' : ''}`}
         aria-label="Lottie Animation Controls"
       >
         <button
@@ -660,26 +665,27 @@ export class DotLottiePlayer extends LitElement {
             min="0"
             max="100"
             step="1"
-            value=${(this.seeker ?? 0).toString()}
+            value=${this.seeker}
             @change=${this._handleSeekChange}
             @mousedown=${() => {
               this._prevState = this.currentState
               this.freeze()
             }}
             @mouseup=${() => {
-              this._prevState === PlayerState.Playing && this.play()
+              this._prevState === PlayerState.Playing &&
+                this.play()
             }}
             aria-valuemin="0"
             aria-valuemax="100"
             role="slider"
-            aria-valuenow=${(this.seeker ?? 0).toString() }
+            aria-valuenow=${this.seeker}
             tabindex="0"
             aria-label="Slider for search"
           />
           <progress
             min="0"
             max="100"
-            value=${(this.seeker ?? 0).toString() }
+            value=${this.seeker}
           >
           </progress>
         </div>
