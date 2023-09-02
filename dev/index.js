@@ -16141,6 +16141,7 @@
 	        this.loop = false;
 	        this.mode = exports.PlayMode.Normal;
 	        this.objectfit = 'contain';
+	        this.seeker = 0;
 	        this.speed = 1;
 	        this.subframe = false;
 	        this._lottie = null;
