@@ -1,6 +1,8 @@
-# Lottie Player Web Component
-
+# DEPRECATED
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
 ![Awesome Vector Animations](/.github/readmeBanner.svg)
+
+This package is no longer supported. Please consider using ['@aarsteinmedia/dotlottie-player-light'](https://www.npmjs.com/package/@aarsteinmedia/dotlottie-player-light) instead. That one has more functionality while being even lighter.
 
 This is a light version of of [@johanaarstein/dotlottie-player](https://www.npmjs.com/package/@johanaarstein/dotlottie-player), that only outputs SVG renders – and not Canvas or HTML.
 
